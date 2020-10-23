@@ -17,6 +17,7 @@ const project = new TypeScriptProject({
     "cdk",
     "api-gw"
   ],
+  releaseWorkflow: false,
 });
 
 const stage = '${STAGE:-dev}';

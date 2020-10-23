@@ -27,7 +27,7 @@ export class ApiGwStack extends CustomStack {
       defaultCorsPreflightOptions: {
         allowOrigins: props.allowedOrigins,
         allowMethods: Cors.ALL_METHODS,
-      }
+      },
     });
 
     const alfInstanceId = {
@@ -161,14 +161,19 @@ export class ApiGwStack extends CustomStack {
       }
     };
 
-    const errorModel = api.addModel('Error', {
-      modelName: 'Error',
-      schema: errorSchema,
-    });
-    errorModel;
+    // const errorModel = api.addModel('Error', {
+    //   modelName: 'Error',
+    //   schema: errorSchema,
+    // });
+    // errorModel;
 
     const authErrorModel = api.addModel('AuthError', {
       modelName: 'AuthError',
+      schema: errorSchema,
+    });
+
+    const notFoundErrorModel = api.addModel('NotFoundError', {
+      modelName: 'NotFoundError',
       schema: errorSchema,
     });
 
