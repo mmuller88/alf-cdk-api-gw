@@ -1,6 +1,6 @@
+import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 import { name } from '../package.json';
 import { ApiGwStack } from './api-gw';
-import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 // import { sharedDevAccountProps, sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
 
 // const name = 'alf-cdk-api-gw';
@@ -20,7 +20,7 @@ const pipelineAppProps: PipelineAppProps = {
       account: {
         id: '981237193288',
         region: 'us-east-1',
-      },     
+      },
       stage: 'prod',
     },
   ],
@@ -35,11 +35,12 @@ const pipelineAppProps: PipelineAppProps = {
         account: stageAccount.account.id,
         region: stageAccount.account.region,
       },
+      stackName: `${name}-${stageAccount.stage}`,
       stage: stageAccount.stage,
-    })
+    });
   },
   manualApprovals: (account) => {
-    return account.stage === 'dev' ? false : true
+    return account.stage === 'dev' ? false : true;
   },
   testCommands: (_) => [
     // `curl -Ssf $InstancePublicDnsName && aws cloudformation delete-stack --stack-name itest123 --region ${account.region}`,

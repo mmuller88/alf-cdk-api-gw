@@ -1,14 +1,14 @@
-import { StackProps, Construct } from '@aws-cdk/core';
 import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
+import { StackProps, Construct } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
 };
 
-export class ApiGwStack extends CustomStack{
+export class ApiGwStack extends CustomStack {
 
-  constructor(scope: Construct, id: string, props: ApiGwStackProps){
+  constructor(scope: Construct, id: string, props: ApiGwStackProps) {
     super(scope, id, props);
 
     const apiRole = new Role(this, 'apiRole', {
