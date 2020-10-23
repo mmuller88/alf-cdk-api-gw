@@ -38,6 +38,9 @@ const pipelineAppProps: PipelineAppProps = {
       stage: stageAccount.stage,
     })
   },
+  manualApprovals: (account) => {
+    return account.stage === 'dev' ? false : true
+  },
   testCommands: (_) => [
     // `curl -Ssf $InstancePublicDnsName && aws cloudformation delete-stack --stack-name itest123 --region ${account.region}`,
     // 'curl -Ssf $CustomInstanceUrl',
