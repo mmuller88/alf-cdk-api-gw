@@ -151,6 +151,43 @@ export class ApiGwStack extends CustomStack {
       schema: instanceSchema,
     });
 
+    // Error Model
+    const errorSchema = {
+      required: [ "message" ],
+      properties: {
+        message: {
+          type: JsonSchemaType.STRING,
+        }
+      }
+    };
+
+    const errorModel = api.addModel('Error', {
+      modelName: 'Error',
+      schema: errorSchema,
+    });
+    errorModel;
+
+    const authErrorModel = api.addModel('AuthError', {
+      modelName: 'AuthError',
+      schema: errorSchema,
+    });
+
+    const validationErrorModel = api.addModel('ValidationError', {
+      modelName: 'ValidationError',
+      schema: {
+        required: [ "message", "validationErrors" ],
+        properties: {
+          message: {
+            type: JsonSchemaType.STRING,
+          },
+          validationErrors: {
+            type: JsonSchemaType.STRING,
+          }
+        }
+      },
+    });
+    validationErrorModel;
+
     const mock = new MockIntegration({});
 
     const instancesResource = api.root.addResource('instances');
@@ -163,6 +200,11 @@ export class ApiGwStack extends CustomStack {
         statusCode: '200',
         responseModels: {
           'application/json': instanceListModel,
+        },
+      },{
+        statusCode: '401',
+        responseModels: {
+          'application/json': authErrorModel,
         },
       }]
     });
