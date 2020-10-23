@@ -6,7 +6,7 @@
         "Name": "Alf Instance Service"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Resource"
       }
     },
     "RestApiCloudWatchRoleE3ED6605": {
@@ -40,7 +40,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/CloudWatchRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/CloudWatchRole/Resource"
       }
     },
     "RestApiAccount7C83CF5A": {
@@ -57,10 +57,10 @@
         "RestApi0C43BF4B"
       ],
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Account"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Account"
       }
     },
-    "RestApiDeployment180EC50398483acd9981ba10991b7e006a2399ab": {
+    "RestApiDeployment180EC503de5c5c49bf0c9a86075ef894b3fae0af": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -84,7 +84,7 @@
         "RestApiInstanceList1E6E6DE2"
       ],
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Deployment/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Deployment/Resource"
       }
     },
     "RestApiDeploymentStageprod3855DE66": {
@@ -94,12 +94,12 @@
           "Ref": "RestApi0C43BF4B"
         },
         "DeploymentId": {
-          "Ref": "RestApiDeployment180EC50398483acd9981ba10991b7e006a2399ab"
+          "Ref": "RestApiDeployment180EC503de5c5c49bf0c9a86075ef894b3fae0af"
         },
         "StageName": "prod"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/DeploymentStage.prod/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/DeploymentStage.prod/Resource"
       }
     },
     "RestApiOPTIONS6AA64D2D": {
@@ -149,7 +149,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/OPTIONS/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/OPTIONS/Resource"
       }
     },
     "RestApiinstancesE7BF16AA": {
@@ -167,7 +167,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/Resource"
       }
     },
     "RestApiinstancesOPTIONS83CED38E": {
@@ -214,7 +214,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/OPTIONS/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/OPTIONS/Resource"
       }
     },
     "RestApiinstancesGETAE6193D3": {
@@ -246,7 +246,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/GET/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/GET/Resource"
       }
     },
     "RestApiinstancesalfInstanceIdEC3D5325": {
@@ -261,7 +261,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/Resource"
       }
     },
     "RestApiinstancesalfInstanceIdOPTIONS4669CE2A": {
@@ -308,7 +308,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/OPTIONS/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/OPTIONS/Resource"
       }
     },
     "RestApiinstancesalfInstanceIdGETAD144123": {
@@ -340,7 +340,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/GET/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances/{alfInstanceId}/GET/Resource"
       }
     },
     "RestApiinstancesconfDAF321B5": {
@@ -358,7 +358,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances-conf/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances-conf/Resource"
       }
     },
     "RestApiinstancesconfOPTIONS13E795F5": {
@@ -405,7 +405,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances-conf/OPTIONS/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances-conf/OPTIONS/Resource"
       }
     },
     "RestApiinstancesconfGET7E980A13": {
@@ -437,7 +437,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Default/instances-conf/GET/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Default/instances-conf/GET/Resource"
       }
     },
     "RestApiInstanceConfListCB86643B": {
@@ -529,7 +529,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/InstanceConfList/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/InstanceConfList/Resource"
       }
     },
     "RestApiInstanceList1E6E6DE2": {
@@ -603,7 +603,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/InstanceList/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/InstanceList/Resource"
       }
     },
     "RestApiInstance582E924F": {
@@ -671,7 +671,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/Instance/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/Instance/Resource"
       }
     },
     "RestApiapiDomainName57789728": {
@@ -687,10 +687,10 @@
         "SecurityPolicy": "TLS_1_2"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/apiDomainName/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/apiDomainName/Resource"
       }
     },
-    "RestApiapiDomainNameMapalfcdkapigwprodRestApiE619CAD26F873F16": {
+    "RestApiapiDomainNameMapalfcdkapigwpipelinestackbuildCustomStageprodalfcdkapigwprodRestApi7E91BBFCE7916B1B": {
       "Type": "AWS::ApiGateway::BasePathMapping",
       "Properties": {
         "DomainName": {
@@ -704,7 +704,7 @@
         }
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/RestApi/apiDomainName/Map:--=>alfcdkapigwprodRestApiE619CAD2/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/RestApi/apiDomainName/Map:--=>alfcdkapigwpipelinestackbuildCustomStageprodalfcdkapigwprodRestApi7E91BBFC/Resource"
       }
     },
     "CustomDomainAliasRecord76233043": {
@@ -729,7 +729,7 @@
         "HostedZoneId": "Z05027561FL1C7WWU4SX4"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/CustomDomainAliasRecord/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/CustomDomainAliasRecord/Resource"
       }
     },
     "CDKMetadata": {
@@ -738,7 +738,7 @@
         "Modules": "aws-cdk=1.66.0,@aws-cdk/assets=1.69.0,@aws-cdk/aws-apigateway=1.69.0,@aws-cdk/aws-applicationautoscaling=1.69.0,@aws-cdk/aws-autoscaling=1.69.0,@aws-cdk/aws-autoscaling-common=1.69.0,@aws-cdk/aws-autoscaling-hooktargets=1.69.0,@aws-cdk/aws-certificatemanager=1.69.0,@aws-cdk/aws-cloudformation=1.69.0,@aws-cdk/aws-cloudwatch=1.69.0,@aws-cdk/aws-codebuild=1.69.0,@aws-cdk/aws-codeguruprofiler=1.69.0,@aws-cdk/aws-codepipeline=1.69.0,@aws-cdk/aws-codepipeline-actions=1.69.0,@aws-cdk/aws-ec2=1.69.0,@aws-cdk/aws-ecr=1.69.0,@aws-cdk/aws-ecr-assets=1.69.0,@aws-cdk/aws-ecs=1.69.0,@aws-cdk/aws-elasticloadbalancingv2=1.69.0,@aws-cdk/aws-events=1.69.0,@aws-cdk/aws-events-targets=1.69.0,@aws-cdk/aws-iam=1.69.0,@aws-cdk/aws-kms=1.69.0,@aws-cdk/aws-lambda=1.69.0,@aws-cdk/aws-logs=1.69.0,@aws-cdk/aws-route53=1.69.0,@aws-cdk/aws-route53-targets=1.69.0,@aws-cdk/aws-s3=1.69.0,@aws-cdk/aws-s3-assets=1.69.0,@aws-cdk/aws-servicediscovery=1.69.0,@aws-cdk/aws-sns=1.69.0,@aws-cdk/aws-sns-subscriptions=1.69.0,@aws-cdk/aws-sqs=1.69.0,@aws-cdk/aws-ssm=1.69.0,@aws-cdk/cloud-assembly-schema=1.69.0,@aws-cdk/core=1.69.0,@aws-cdk/custom-resources=1.69.0,@aws-cdk/cx-api=1.69.0,@aws-cdk/pipelines=1.69.0,@aws-cdk/region-info=1.69.0,jsii-runtime=node.js/v10.19.0"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-prod/CDKMetadata/Default"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CustomStage-prod/alf-cdk-api-gw-prod/CDKMetadata/Default"
       }
     }
   },

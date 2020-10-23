@@ -5,6 +5,7 @@ const dependencies = {
 }
 
 const name = 'alf-cdk-api-gw';
+
 const project = new TypeScriptProject({
   name: name,
   authorAddress: "damadden88g@googlemail.com",

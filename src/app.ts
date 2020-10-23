@@ -1,3 +1,4 @@
+import { sharedDevAccountProps, sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
 import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 import { name } from '../package.json';
 import { ApiGwStack } from './api-gw';
@@ -30,6 +31,24 @@ const pipelineAppProps: PipelineAppProps = {
   },
   customStack: (scope, stageAccount) => {
 
+    const alfCdkSpecifics = {
+      ...(stageAccount.stage === 'dev' ? {
+        domain: {
+          domainName: `api.${sharedDevAccountProps.zoneName.slice(0,-1)}`,
+          zoneName: sharedDevAccountProps.zoneName,
+          hostedZoneId: sharedDevAccountProps.hostedZoneId,
+          certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
+        },
+      } : { // prod
+        domain: {
+          domainName: `api.${sharedProdAccountProps.zoneName.slice(0,-1)}`, // 'api.alfpro.net',
+          zoneName: sharedProdAccountProps.zoneName,
+          hostedZoneId: sharedProdAccountProps.hostedZoneId,
+          certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/62010fca-125e-4780-8d71-7d745ff91789`
+        },
+      })
+    };
+
     return new ApiGwStack(scope, `${name}-${stageAccount.stage}`, {
       env: {
         account: stageAccount.account.id,
@@ -37,6 +56,7 @@ const pipelineAppProps: PipelineAppProps = {
       },
       stackName: `${name}-${stageAccount.stage}`,
       stage: stageAccount.stage,
+      domain: alfCdkSpecifics.domain,
     });
   },
   manualApprovals: (account) => {

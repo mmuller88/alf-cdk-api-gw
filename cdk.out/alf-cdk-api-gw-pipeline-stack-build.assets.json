@@ -15,15 +15,15 @@
         }
       }
     },
-    "182650ffac132216354e8d1c19d35ec634cad4e3b79201e9c7fa5c5cd9fdc0de": {
+    "7d60e8431c1ee90927aa1fbec1ef78a3521bec187b6ff40618b03e96ace61706": {
       "source": {
-        "path": "alf-cdk-api-gw-pipeline.template.json",
+        "path": "alf-cdk-api-gw-pipeline-stack-build.template.json",
         "packaging": "file"
       },
       "destinations": {
         "981237193288-eu-central-1": {
           "bucketName": "cdk-hnb659fds-assets-981237193288-eu-central-1",
-          "objectKey": "182650ffac132216354e8d1c19d35ec634cad4e3b79201e9c7fa5c5cd9fdc0de",
+          "objectKey": "7d60e8431c1ee90927aa1fbec1ef78a3521bec187b6ff40618b03e96ace61706",
           "region": "eu-central-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-file-publishing-role-981237193288-eu-central-1"
         }

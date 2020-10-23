@@ -1,15 +1,15 @@
 {
   "version": "6.0.0",
   "files": {
-    "001699a05e9d7e7e894e19f6d159e81074523bb1275e0c9b60af989c37be6a41": {
+    "834c2d1a8824ea52898b279a72d116a31c9793a1afcfdb2d906698fc79e8ee12": {
       "source": {
-        "path": "alfcdkapigwpipelineCustomStagedevalfcdkapigwdev353F0EA4.template.json",
+        "path": "alfcdkapigwpipelinestackbuildCustomStagedevalfcdkapigwdevEDF636BB.template.json",
         "packaging": "file"
       },
       "destinations": {
         "981237193288-eu-central-1": {
           "bucketName": "cdk-hnb659fds-assets-981237193288-eu-central-1",
-          "objectKey": "001699a05e9d7e7e894e19f6d159e81074523bb1275e0c9b60af989c37be6a41",
+          "objectKey": "834c2d1a8824ea52898b279a72d116a31c9793a1afcfdb2d906698fc79e8ee12",
           "region": "eu-central-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-file-publishing-role-981237193288-eu-central-1"
         }
