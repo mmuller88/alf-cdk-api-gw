@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.2 (2020-10-23)
+
+
+### Features
+
+* api gw per typescript ([e210b28](https://github.com/mmuller88/alf-cdk-api-gw/commit/e210b28b83637c585c0aece5afd7cbd7584ef54b))
+
 ### [0.0.1](https://github.com/mmuller88/alf-cdk-api-gw/compare/v0.0.2...v0.0.1) (2020-10-23)
 
 
