@@ -7,8 +7,15 @@ const dependencies = {
 const name = 'alf-cdk-api-gw';
 const project = new TypeScriptProject({
   name: name,
+  authorAddress: "damadden88g@googlemail.com",
+  authorName: "Martin Müller",
+  repository: `https://github.com/mmuller88/${name}`,
   dependencies,
   peerDependencies: dependencies,
+  keywords: [
+    "cdk",
+    "api-gw"
+  ],
 });
 
 const stage = '${STAGE:-dev}';
