@@ -53,3 +53,4 @@ jspm_packages/
 !/tsconfig.jest.json
 !/test
 !/.eslintrc.json
+!cdk.out
