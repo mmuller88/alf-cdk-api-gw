@@ -1,0 +1,34 @@
+{
+  "name": "alf-cdk-cognito",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk",
+    "lint": "eslint --ext .ts .",
+    "version": "standard-version",
+    "versionAsMinor": "standard-version --release-as minor"
+  },
+  "author": "Martin Mueller damadden88@googlemail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "typescript": "~4.0.3",
+    "wait-on": "^5.2.0",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-immutable": "^6.0.1",
+    "no-changes": "(git log --oneline -1 | grep -q \"chore(release):\") && echo \"No changes to release.\"",
+    "bump": "yarn run --silent no-changes || standard-version",
+    "release": "yarn run --silent no-changes || (yarn run bump && git push --follow-tags origin master)",
+    "cz-conventional-changelog": "^3.3.0",
+    "standard-version": "^9.0.0"
+  },
+  "dependencies": {
+    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#master",
+    "source-map-support": "^0.5.19"
+  }
+}

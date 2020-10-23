@@ -1,0 +1,20 @@
+{
+  "version": "6.0.0",
+  "files": {
+    "04dd66a09f07c83281ec9aab16c4a5ba224fa5884b1f18e18bdbc23ad07cd723": {
+      "source": {
+        "path": "alf-cdk-api-gw-prod.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "981237193288-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-981237193288-us-east-1",
+          "objectKey": "04dd66a09f07c83281ec9aab16c4a5ba224fa5884b1f18e18bdbc23ad07cd723",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-file-publishing-role-981237193288-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

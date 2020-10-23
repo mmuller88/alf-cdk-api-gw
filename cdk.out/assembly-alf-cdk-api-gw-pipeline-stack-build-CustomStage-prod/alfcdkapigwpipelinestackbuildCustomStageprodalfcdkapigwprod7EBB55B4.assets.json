@@ -1,0 +1,20 @@
+{
+  "version": "6.0.0",
+  "files": {
+    "05ba32f7b95b33fde1eb764e3391c3e2bab8873ca84bf7da6e64609367bcd008": {
+      "source": {
+        "path": "alfcdkapigwpipelinestackbuildCustomStageprodalfcdkapigwprod7EBB55B4.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "981237193288-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-981237193288-us-east-1",
+          "objectKey": "05ba32f7b95b33fde1eb764e3391c3e2bab8873ca84bf7da6e64609367bcd008",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::981237193288:role/cdk-hnb659fds-file-publishing-role-981237193288-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,13 +1,13 @@
 .DEFAULT_GOAL := build
 
-FUNCTION_NAME := $(shell node -p "require('./package.json').name")
+PACKAGE_NAME := $(shell node -p "require('./package.json').name")
 
 check-env:
-ifeq ($(FUNCTION_NAME),)
-	$(error FUNCTION_NAME is empty)
+ifeq ($(PACKAGE_NAME),)
+	$(error PACKAGE_NAME is empty)
 endif
-ifeq ($(FUNCTION_NAME),undefined)
-	$(error FUNCTION_NAME is undefined)
+ifeq ($(PACKAGE_NAME),undefined)
+	$(error PACKAGE_NAME is undefined)
 endif
 
 .PHONY: prepare
@@ -16,7 +16,7 @@ prepare:
 
 .PHONY: install
 install:
-	npm install && npm install
+	yarn install
 
 .PHONY: clean
 clean:
@@ -24,23 +24,11 @@ clean:
 
 .PHONY: build
 build: clean install
-	npm run build
-
-.PHONY: builddev
-builddev: clean install
-	npm run build
-
-.PHONY: buildprod
-buildprod: clean install
-	npm run build
+	yarn run build
 
 .PHONY: test
 test:
 	echo "not implemented"
-
-.PHONY: package
-package:
-	cd build && npm install --only=production
 
 .PHONY: cdkclean
 cdkclean:
@@ -48,44 +36,28 @@ cdkclean:
 
 .PHONY: cdkbuild
 cdkbuild: cdkclean install
-	npm run build
+	yarn run build
 
 .PHONY: cdkdiff
-cdkdiff: cdkclean cdkbuild
-	cdk diff || true
+cdkdiff: cdkclean cdkbuild build
+	cdk diff '$(PACKAGE_NAME)-${STAGE}' --profile damadden88 || true
 
-.PHONY: cdkdiffdev
-cdkdiffdev: cdkclean cdkbuild builddev
-	cdk diff '$(FUNCTION_NAME)-dev' --profile damadden88 || true
+.PHONY: cdkdeploy
+cdkdeploy: cdkclean cdkbuild build
+	cdk deploy '$(PACKAGE_NAME)-${STAGE}' --profile damadden88 --require-approval never
 
-.PHONY: cdkdiffprod
-cdkdiffprod: cdkclean cdkbuild buildprod
-	cdk diff '$(FUNCTION_NAME)-prod' --profile damadden88 || true
+.PHONY: cdkdestroy
+cdkdestroy: cdkclean cdkbuild
+	yes | cdk destroy '$(PACKAGE_NAME)-${STAGE}' --profile damadden88
 
-.PHONY: cdkdeploydev
-cdkdeploydev: cdkclean cdkbuild builddev
-	cdk deploy '$(FUNCTION_NAME)-dev' --profile damadden88 --require-approval never
-
-.PHONY: cdkdestroydev
-cdkdestroydev: cdkclean cdkbuild
-	yes | cdk destroy '$(FUNCTION_NAME)-dev' --profile damadden88
-
-.PHONY: cdkdeployprod
-cdkdeployprod: cdkclean cdkbuild buildprod
-	cdk deploy '$(FUNCTION_NAME)-prod' --profile damadden88 --require-approval never
-
-.PHONY: cdkdestroyprod
-cdkdestroyprod: cdkclean cdkbuild
-	yes | cdk destroy '$(FUNCTION_NAME)-prod' --profile damadden88
-
-.PHONY: cdksynthprod
-cdksynthprod: cdkclean cdkbuild buildprod
-	cdk synth '$(FUNCTION_NAME)-prod' --profile damadden88
+.PHONY: cdksynth
+cdksynth: cdkclean cdkbuild build
+	cdk synth '$(PACKAGE_NAME)-${STAGE}'--profile damadden88
 
 .PHONY: cdkpipelinediff
 cdkpipelinediff: check-env cdkclean cdkbuild
-	cdk diff "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 || true
+	cdk diff "$(PACKAGE_NAME)-pipeline-stack-build" --profile damadden88 || true
 
 .PHONY: cdkpipelinedeploy
 cdkpipelinedeploy: check-env cdkclean cdkbuild
-	cdk deploy "$(FUNCTION_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
+	cdk deploy "$(PACKAGE_NAME)-pipeline-stack-build" --profile damadden88 --require-approval never
