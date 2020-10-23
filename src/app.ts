@@ -1,9 +1,9 @@
-// import { name } from '../package.json';
+import { name } from '../package.json';
 import { ApiGwStack } from './api-gw';
 import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 // import { sharedDevAccountProps, sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
 
-const name = 'alf-cdk-api-gw';
+// const name = 'alf-cdk-api-gw';
 
 const pipelineAppProps: PipelineAppProps = {
   branch: 'master',

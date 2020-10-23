@@ -6,7 +6,7 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ],
         "VersioningConfiguration": {
@@ -16,7 +16,7 @@
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete",
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/PipeBucket/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/PipeBucket/Resource"
       }
     },
     "PipeBucketAutoBucket68614A3E": {
@@ -35,7 +35,7 @@
       "UpdateReplacePolicy": "Delete",
       "DeletionPolicy": "Delete",
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/PipeBucket/AutoBucket/Default"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/PipeBucket/AutoBucket/Default"
       }
     },
     "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRole2F2A10DB": {
@@ -70,12 +70,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/Resource"
       }
     },
     "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRoleDefaultPolicy57248D6C": {
@@ -127,7 +127,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/ServiceRole/DefaultPolicy/Resource"
       }
     },
     "AutoBucket7677dc81117d41c0b75bdb11cb84bb70DC15ED41": {
@@ -148,7 +148,7 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ],
         "Timeout": 900
@@ -158,7 +158,7 @@
         "AutoBucket7677dc81117d41c0b75bdb11cb84bb70ServiceRole2F2A10DB"
       ],
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Resource",
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/AutoBucket7677dc81117d41c0b75bdb11cb84bb70/Resource",
         "aws:asset:path": "asset.392e2627a26f124347194605f96c8ed33d4552afcc2339b700ce6d6ce351eac1",
         "aws:asset:property": "Code"
       }
@@ -181,12 +181,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Role/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Role/Resource"
       }
     },
     "PipelineRoleDefaultPolicyC7A05455": {
@@ -262,6 +262,16 @@
               "Effect": "Allow",
               "Resource": {
                 "Fn::GetAtt": [
+                  "PipelineCustomStageprodManualApprovalCodePipelineActionRole5C38AD47",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
                   "PipelineCustomStageprodTestCustomStackCodePipelineActionRoleD27AE0B6",
                   "Arn"
                 ]
@@ -302,7 +312,7 @@
                       {
                         "Ref": "AWS::Partition"
                       },
-                      ":s3:::alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdd7a4bfe495af"
+                      ":s3:::alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdb71a00746e29"
                     ]
                   ]
                 },
@@ -314,7 +324,7 @@
                       {
                         "Ref": "AWS::Partition"
                       },
-                      ":s3:::alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdd7a4bfe495af/*"
+                      ":s3:::alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdb71a00746e29/*"
                     ]
                   ]
                 }
@@ -358,7 +368,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Role/DefaultPolicy/Resource"
       }
     },
     "PipelineC660917D": {
@@ -411,7 +421,7 @@
                   "ProjectName": {
                     "Ref": "PipelineBuildSynthCdkBuildProject1250E181"
                   },
-                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"e00d8cebf1396f6dd5528d0a5499427a11038bbc03a2e39ff7708c87968d3a86\"}]"
+                  "EnvironmentVariables": "[{\"name\":\"_PROJECT_CONFIG_HASH\",\"type\":\"PLAINTEXT\",\"value\":\"23f6e0354acc7f13adf25fcd0f51ec51ffcfe2d917db55005ba6b6117bf05528\"}]"
                 },
                 "InputArtifacts": [
                   {
@@ -518,7 +528,7 @@
                   },
                   "ActionMode": "CHANGE_SET_REPLACE",
                   "ChangeSetName": "PipelineChange",
-                  "TemplatePath": "Artifact_Build_Synth::assembly-alf-cdk-api-gw-pipeline-stack-build-CustomStage-dev/alfcdkapigwpipelinestackbuildCustomStagedevalfcdkapigwdevEDF636BB.template.json"
+                  "TemplatePath": "Artifact_Build_Synth::assembly-alf-cdk-api-gw-pipeline-CustomStage-dev/alfcdkapigwpipelineCustomStagedevalfcdkapigwdev353F0EA4.template.json"
                 },
                 "InputArtifacts": [
                   {
@@ -574,6 +584,22 @@
             "Actions": [
               {
                 "ActionTypeId": {
+                  "Category": "Approval",
+                  "Owner": "AWS",
+                  "Provider": "Manual",
+                  "Version": "1"
+                },
+                "Name": "ManualApproval",
+                "RoleArn": {
+                  "Fn::GetAtt": [
+                    "PipelineCustomStageprodManualApprovalCodePipelineActionRole5C38AD47",
+                    "Arn"
+                  ]
+                },
+                "RunOrder": 2
+              },
+              {
+                "ActionTypeId": {
                   "Category": "Build",
                   "Owner": "AWS",
                   "Provider": "CodeBuild",
@@ -596,7 +622,7 @@
                     "Arn"
                   ]
                 },
-                "RunOrder": 3
+                "RunOrder": 4
               },
               {
                 "ActionTypeId": {
@@ -622,7 +648,7 @@
                   },
                   "ActionMode": "CHANGE_SET_REPLACE",
                   "ChangeSetName": "PipelineChange",
-                  "TemplatePath": "Artifact_Build_Synth::assembly-alf-cdk-api-gw-pipeline-stack-build-CustomStage-prod/alfcdkapigwpipelinestackbuildCustomStageprodalfcdkapigwprod7EBB55B4.template.json"
+                  "TemplatePath": "Artifact_Build_Synth::assembly-alf-cdk-api-gw-pipeline-CustomStage-prod/alfcdkapigwpipelineCustomStageprodalfcdkapigwprodB1481822.template.json"
                 },
                 "InputArtifacts": [
                   {
@@ -671,7 +697,7 @@
                     ]
                   ]
                 },
-                "RunOrder": 2
+                "RunOrder": 3
               }
             ],
             "Name": "CustomStage-prod"
@@ -689,13 +715,13 @@
                       {
                         "Ref": "AWS::Partition"
                       },
-                      ":kms:us-east-1:981237193288:alias/peline-stencryptionaliascc2b482bfe48456f85e1"
+                      ":kms:us-east-1:981237193288:alias/peline-stencryptionaliascc2b482b183da876311d"
                     ]
                   ]
                 },
                 "Type": "KMS"
               },
-              "Location": "alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdd7a4bfe495af",
+              "Location": "alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdb71a00746e29",
               "Type": "S3"
             },
             "Region": "us-east-1"
@@ -714,7 +740,7 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
@@ -723,7 +749,7 @@
         "PipelineRoleD68726F7"
       ],
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Resource"
       }
     },
     "PipelineSourceGithubSourceWebhookResource05FA5D46": {
@@ -747,7 +773,7 @@
         "RegisterWithThirdParty": true
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Source/GithubSource/WebhookResource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Source/GithubSource/WebhookResource"
       }
     },
     "PipelineBuildSynthCodePipelineActionRoleA0A9CB64": {
@@ -779,12 +805,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Build/Synth/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Build/Synth/CodePipelineActionRole/Resource"
       }
     },
     "PipelineBuildSynthCodePipelineActionRoleDefaultPolicy883FAA33": {
@@ -817,7 +843,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Build/Synth/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Build/Synth/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineBuildSynthCdkBuildProjectRole808C155A": {
@@ -838,12 +864,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Build/Synth/CdkBuildProject/Role/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/Resource"
       }
     },
     "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyE35C3CF9": {
@@ -897,7 +923,8 @@
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
-                "codebuild:BatchPutTestCases"
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
               ],
               "Effect": "Allow",
               "Resource": {
@@ -961,7 +988,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource"
       }
     },
     "PipelineBuildSynthCdkBuildProject1250E181": {
@@ -983,19 +1010,19 @@
           ]
         },
         "Source": {
-          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"pre_build\": {\n      \"commands\": [\n        \"npm install && npm install -g aws-cdk@1.66.0\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"make cdksynthprod\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"pre_build\": {\n      \"commands\": [\n        \"yarn install && yarn global add aws-cdk@1.69.0\"\n      ]\n    },\n    \"build\": {\n      \"commands\": [\n        \"yarn run cdksynth\"\n      ]\n    }\n  },\n  \"artifacts\": {\n    \"base-directory\": \"cdk.out\",\n    \"files\": \"**/*\"\n  }\n}",
           "Type": "CODEPIPELINE"
         },
         "EncryptionKey": "alias/aws/s3",
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/Build/Synth/CdkBuildProject/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/Build/Synth/CdkBuildProject/Resource"
       }
     },
     "PipelineUpdatePipelineSelfMutateCodePipelineActionRole258195B5": {
@@ -1027,12 +1054,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource"
       }
     },
     "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE2077DE3": {
@@ -1065,7 +1092,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineCustomStagedevTestCustomStackCodePipelineActionRoleB3527865": {
@@ -1097,12 +1124,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-dev/TestCustomStack/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-dev/TestCustomStack/CodePipelineActionRole/Resource"
       }
     },
     "PipelineCustomStagedevTestCustomStackCodePipelineActionRoleDefaultPolicyADAFB448": {
@@ -1135,7 +1162,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-dev/TestCustomStack/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-dev/TestCustomStack/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineCustomStagedevTestCustomStackProjectRole99CB7413": {
@@ -1156,12 +1183,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-dev/TestCustomStack/Project/Role/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-dev/TestCustomStack/Project/Role/Resource"
       }
     },
     "PipelineCustomStagedevTestCustomStackProjectRoleDefaultPolicy041FFC2A": {
@@ -1215,7 +1242,8 @@
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
-                "codebuild:BatchPutTestCases"
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
               ],
               "Effect": "Allow",
               "Resource": {
@@ -1281,7 +1309,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-dev/TestCustomStack/Project/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-dev/TestCustomStack/Project/Role/DefaultPolicy/Resource"
       }
     },
     "PipelineCustomStagedevTestCustomStackProject1854E011": {
@@ -1310,12 +1338,49 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-dev/TestCustomStack/Project/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-dev/TestCustomStack/Project/Resource"
+      }
+    },
+    "PipelineCustomStageprodManualApprovalCodePipelineActionRole5C38AD47": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::981237193288:root"
+                    ]
+                  ]
+                }
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "PipelineStack",
+            "Value": "alf-cdk-api-gw-pipeline"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/ManualApproval/CodePipelineActionRole/Resource"
       }
     },
     "PipelineCustomStageprodTestCustomStackCodePipelineActionRoleD27AE0B6": {
@@ -1347,12 +1412,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-prod/TestCustomStack/CodePipelineActionRole/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/TestCustomStack/CodePipelineActionRole/Resource"
       }
     },
     "PipelineCustomStageprodTestCustomStackCodePipelineActionRoleDefaultPolicyB3AB25B6": {
@@ -1385,7 +1450,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-prod/TestCustomStack/CodePipelineActionRole/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/TestCustomStack/CodePipelineActionRole/DefaultPolicy/Resource"
       }
     },
     "PipelineCustomStageprodTestCustomStackProjectRole45C26EFD": {
@@ -1406,12 +1471,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-prod/TestCustomStack/Project/Role/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/TestCustomStack/Project/Role/Resource"
       }
     },
     "PipelineCustomStageprodTestCustomStackProjectRoleDefaultPolicy4962D739": {
@@ -1465,7 +1530,8 @@
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
-                "codebuild:BatchPutTestCases"
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
               ],
               "Effect": "Allow",
               "Resource": {
@@ -1531,7 +1597,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-prod/TestCustomStack/Project/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/TestCustomStack/Project/Role/DefaultPolicy/Resource"
       }
     },
     "PipelineCustomStageprodTestCustomStackProject19F371B1": {
@@ -1560,12 +1626,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/Pipeline/CustomStage-prod/TestCustomStack/Project/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/Pipeline/CustomStage-prod/TestCustomStack/Project/Resource"
       }
     },
     "CdkPipelineUpdatePipelineSelfMutationRole9B65198C": {
@@ -1586,12 +1652,12 @@
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CdkPipeline/UpdatePipeline/SelfMutation/Role/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/CdkPipeline/UpdatePipeline/SelfMutation/Role/Resource"
       }
     },
     "CdkPipelineUpdatePipelineSelfMutationRoleDefaultPolicyAA8CCA2A": {
@@ -1645,7 +1711,8 @@
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
-                "codebuild:BatchPutTestCases"
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
               ],
               "Effect": "Allow",
               "Resource": {
@@ -1724,7 +1791,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CdkPipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/CdkPipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource"
       }
     },
     "CdkPipelineUpdatePipelineSelfMutation81360810": {
@@ -1746,28 +1813,28 @@
           ]
         },
         "Source": {
-          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": \"npm install -g aws-cdk\"\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk -a . deploy alf-cdk-api-gw-pipeline-stack-build --require-approval=never --verbose\"\n      ]\n    }\n  }\n}",
+          "BuildSpec": "{\n  \"version\": \"0.2\",\n  \"phases\": {\n    \"install\": {\n      \"commands\": \"npm install -g aws-cdk\"\n    },\n    \"build\": {\n      \"commands\": [\n        \"cdk -a . deploy alf-cdk-api-gw-pipeline --require-approval=never --verbose\"\n      ]\n    }\n  }\n}",
           "Type": "CODEPIPELINE"
         },
         "EncryptionKey": "alias/aws/s3",
         "Tags": [
           {
             "Key": "PipelineStack",
-            "Value": "alf-cdk-api-gw-pipeline-stack-build"
+            "Value": "alf-cdk-api-gw-pipeline"
           }
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CdkPipeline/UpdatePipeline/SelfMutation/Resource"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/CdkPipeline/UpdatePipeline/SelfMutation/Resource"
       }
     },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Modules": "aws-cdk=1.66.0,@aws-cdk/assets=1.66.0,@aws-cdk/aws-applicationautoscaling=1.66.0,@aws-cdk/aws-autoscaling=1.66.0,@aws-cdk/aws-autoscaling-common=1.66.0,@aws-cdk/aws-autoscaling-hooktargets=1.66.0,@aws-cdk/aws-cloudformation=1.66.0,@aws-cdk/aws-cloudwatch=1.66.0,@aws-cdk/aws-codebuild=1.66.0,@aws-cdk/aws-codeguruprofiler=1.66.0,@aws-cdk/aws-codepipeline=1.66.0,@aws-cdk/aws-codepipeline-actions=1.66.0,@aws-cdk/aws-ec2=1.66.0,@aws-cdk/aws-ecr=1.66.0,@aws-cdk/aws-ecr-assets=1.66.0,@aws-cdk/aws-ecs=1.66.0,@aws-cdk/aws-elasticloadbalancingv2=1.66.0,@aws-cdk/aws-events=1.66.0,@aws-cdk/aws-events-targets=1.66.0,@aws-cdk/aws-iam=1.66.0,@aws-cdk/aws-kms=1.66.0,@aws-cdk/aws-lambda=1.66.0,@aws-cdk/aws-logs=1.66.0,@aws-cdk/aws-s3=1.66.0,@aws-cdk/aws-s3-assets=1.66.0,@aws-cdk/aws-servicediscovery=1.66.0,@aws-cdk/aws-sns=1.66.0,@aws-cdk/aws-sns-subscriptions=1.66.0,@aws-cdk/aws-sqs=1.66.0,@aws-cdk/aws-ssm=1.66.0,@aws-cdk/cloud-assembly-schema=1.66.0,@aws-cdk/core=1.66.0,@aws-cdk/custom-resources=1.66.0,@aws-cdk/cx-api=1.66.0,@aws-cdk/pipelines=1.66.0,@aws-cdk/region-info=1.66.0,jsii-runtime=node.js/v10.19.0"
+        "Modules": "aws-cdk=1.66.0,@aws-cdk/assets=1.69.0,@aws-cdk/aws-applicationautoscaling=1.69.0,@aws-cdk/aws-autoscaling=1.69.0,@aws-cdk/aws-autoscaling-common=1.69.0,@aws-cdk/aws-autoscaling-hooktargets=1.69.0,@aws-cdk/aws-cloudformation=1.69.0,@aws-cdk/aws-cloudwatch=1.69.0,@aws-cdk/aws-codebuild=1.69.0,@aws-cdk/aws-codeguruprofiler=1.69.0,@aws-cdk/aws-codepipeline=1.69.0,@aws-cdk/aws-codepipeline-actions=1.69.0,@aws-cdk/aws-ec2=1.69.0,@aws-cdk/aws-ecr=1.69.0,@aws-cdk/aws-ecr-assets=1.69.0,@aws-cdk/aws-ecs=1.69.0,@aws-cdk/aws-elasticloadbalancingv2=1.69.0,@aws-cdk/aws-events=1.69.0,@aws-cdk/aws-events-targets=1.69.0,@aws-cdk/aws-iam=1.69.0,@aws-cdk/aws-kms=1.69.0,@aws-cdk/aws-lambda=1.69.0,@aws-cdk/aws-logs=1.69.0,@aws-cdk/aws-s3=1.69.0,@aws-cdk/aws-s3-assets=1.69.0,@aws-cdk/aws-servicediscovery=1.69.0,@aws-cdk/aws-sns=1.69.0,@aws-cdk/aws-sns-subscriptions=1.69.0,@aws-cdk/aws-sqs=1.69.0,@aws-cdk/aws-ssm=1.69.0,@aws-cdk/cloud-assembly-schema=1.69.0,@aws-cdk/core=1.69.0,@aws-cdk/custom-resources=1.69.0,@aws-cdk/cx-api=1.69.0,@aws-cdk/pipelines=1.69.0,@aws-cdk/region-info=1.69.0,jsii-runtime=node.js/v10.19.0"
       },
       "Metadata": {
-        "aws:cdk:path": "alf-cdk-api-gw-pipeline-stack-build/CDKMetadata/Default"
+        "aws:cdk:path": "alf-cdk-api-gw-pipeline/CDKMetadata/Default"
       }
     }
   },

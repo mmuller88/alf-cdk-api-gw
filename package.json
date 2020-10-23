@@ -11,16 +11,18 @@
     "projen:upgrade": "yarn upgrade -L projen && CI=\"\" yarn projen",
     "compile": "tsc",
     "watch": "tsc -w",
-    "build": "yarn run compile && yarn run synth",
+    "build": "yarn run clean && yarn install && yarn run compile",
     "package": "rm -fr dist && mkdir -p dist/js && yarn pack && mv *.tgz dist/js/",
     "test": "rm -fr lib/ && jest --passWithNoTests --updateSnapshot && yarn run eslint",
     "test:watch": "jest --watch",
     "test:update": "jest --updateSnapshot",
     "eslint": "eslint --ext .ts --fix src test",
-    "cdk": "cdk",
-    "synth": "cdk synth",
-    "deploy": "cdk deploy",
-    "diff": "cdk diff"
+    "clean": "rm -rf ./cdk.out && rm -rf ./cdk.out ./build",
+    "cdkdeploy": "yarn run build && cdk deploy alf-cdk-api-gw-${STAGE:-dev} --profile damadden88 --require-approval never",
+    "cdksynth": "yarn run build && cdk synth alf-cdk-api-gw-${STAGE:-dev} --profile damadden88",
+    "cdkdestroy": "yarn run build && yes | cdk destroy alf-cdk-api-gw-${STAGE:-dev} --profile damadden88",
+    "cdkpipelinediff": "yarn run build && cdk diff alf-cdk-api-gw-pipeline --profile damadden88 || true",
+    "cdkpipelinedeploy": "yarn run build && cdk deploy alf-cdk-api-gw-pipeline --profile damadden88 --require-approval never"
   },
   "devDependencies": {
     "@types/jest": "^26.0.7",

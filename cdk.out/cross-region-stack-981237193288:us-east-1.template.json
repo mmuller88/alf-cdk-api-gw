@@ -100,7 +100,7 @@
     "CrossRegionCodePipelineReplicationBucketEncryptionAliasF1A0F37D": {
       "Type": "AWS::KMS::Alias",
       "Properties": {
-        "AliasName": "alias/peline-stencryptionaliascc2b482bfe48456f85e1",
+        "AliasName": "alias/peline-stencryptionaliascc2b482b183da876311d",
         "TargetKeyId": {
           "Fn::GetAtt": [
             "CrossRegionCodePipelineReplicationBucketEncryptionKey70216490",
@@ -129,7 +129,7 @@
                       {
                         "Ref": "AWS::Partition"
                       },
-                      ":kms:us-east-1:981237193288:alias/peline-stencryptionaliascc2b482bfe48456f85e1"
+                      ":kms:us-east-1:981237193288:alias/peline-stencryptionaliascc2b482b183da876311d"
                     ]
                   ]
                 },
@@ -138,7 +138,7 @@
             }
           ]
         },
-        "BucketName": "alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdd7a4bfe495af"
+        "BucketName": "alf-cdk-api-gw-pipeline-seplicationbucketd6dadffdb71a00746e29"
       },
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
@@ -149,7 +149,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Modules": "aws-cdk=1.66.0,@aws-cdk/assets=1.66.0,@aws-cdk/aws-applicationautoscaling=1.66.0,@aws-cdk/aws-autoscaling=1.66.0,@aws-cdk/aws-autoscaling-common=1.66.0,@aws-cdk/aws-autoscaling-hooktargets=1.66.0,@aws-cdk/aws-cloudformation=1.66.0,@aws-cdk/aws-cloudwatch=1.66.0,@aws-cdk/aws-codebuild=1.66.0,@aws-cdk/aws-codeguruprofiler=1.66.0,@aws-cdk/aws-codepipeline=1.66.0,@aws-cdk/aws-codepipeline-actions=1.66.0,@aws-cdk/aws-ec2=1.66.0,@aws-cdk/aws-ecr=1.66.0,@aws-cdk/aws-ecr-assets=1.66.0,@aws-cdk/aws-ecs=1.66.0,@aws-cdk/aws-elasticloadbalancingv2=1.66.0,@aws-cdk/aws-events=1.66.0,@aws-cdk/aws-events-targets=1.66.0,@aws-cdk/aws-iam=1.66.0,@aws-cdk/aws-kms=1.66.0,@aws-cdk/aws-lambda=1.66.0,@aws-cdk/aws-logs=1.66.0,@aws-cdk/aws-s3=1.66.0,@aws-cdk/aws-s3-assets=1.66.0,@aws-cdk/aws-servicediscovery=1.66.0,@aws-cdk/aws-sns=1.66.0,@aws-cdk/aws-sns-subscriptions=1.66.0,@aws-cdk/aws-sqs=1.66.0,@aws-cdk/aws-ssm=1.66.0,@aws-cdk/cloud-assembly-schema=1.66.0,@aws-cdk/core=1.66.0,@aws-cdk/custom-resources=1.66.0,@aws-cdk/cx-api=1.66.0,@aws-cdk/pipelines=1.66.0,@aws-cdk/region-info=1.66.0,jsii-runtime=node.js/v10.19.0"
+        "Modules": "aws-cdk=1.66.0,@aws-cdk/assets=1.69.0,@aws-cdk/aws-applicationautoscaling=1.69.0,@aws-cdk/aws-autoscaling=1.69.0,@aws-cdk/aws-autoscaling-common=1.69.0,@aws-cdk/aws-autoscaling-hooktargets=1.69.0,@aws-cdk/aws-cloudformation=1.69.0,@aws-cdk/aws-cloudwatch=1.69.0,@aws-cdk/aws-codebuild=1.69.0,@aws-cdk/aws-codeguruprofiler=1.69.0,@aws-cdk/aws-codepipeline=1.69.0,@aws-cdk/aws-codepipeline-actions=1.69.0,@aws-cdk/aws-ec2=1.69.0,@aws-cdk/aws-ecr=1.69.0,@aws-cdk/aws-ecr-assets=1.69.0,@aws-cdk/aws-ecs=1.69.0,@aws-cdk/aws-elasticloadbalancingv2=1.69.0,@aws-cdk/aws-events=1.69.0,@aws-cdk/aws-events-targets=1.69.0,@aws-cdk/aws-iam=1.69.0,@aws-cdk/aws-kms=1.69.0,@aws-cdk/aws-lambda=1.69.0,@aws-cdk/aws-logs=1.69.0,@aws-cdk/aws-s3=1.69.0,@aws-cdk/aws-s3-assets=1.69.0,@aws-cdk/aws-servicediscovery=1.69.0,@aws-cdk/aws-sns=1.69.0,@aws-cdk/aws-sns-subscriptions=1.69.0,@aws-cdk/aws-sqs=1.69.0,@aws-cdk/aws-ssm=1.69.0,@aws-cdk/cloud-assembly-schema=1.69.0,@aws-cdk/core=1.69.0,@aws-cdk/custom-resources=1.69.0,@aws-cdk/cx-api=1.69.0,@aws-cdk/pipelines=1.69.0,@aws-cdk/region-info=1.69.0,jsii-runtime=node.js/v10.19.0"
       },
       "Metadata": {
         "aws:cdk:path": "cross-region-stack-981237193288:us-east-1/CDKMetadata/Default"
