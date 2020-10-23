@@ -176,6 +176,7 @@ export class ApiGwStack extends CustomStack {
       modelName: 'NotFoundError',
       schema: errorSchema,
     });
+    notFoundErrorModel;
 
     const validationErrorModel = api.addModel('ValidationError', {
       modelName: 'ValidationError',

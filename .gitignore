@@ -46,7 +46,6 @@ cdk.out
 !version.json
 !/.versionrc.json
 !/.github/workflows/build.yml
-!/.github/workflows/release.yml
 !/.mergify.yml
 !/.github/dependabot.yml
 !/tsconfig.json
