@@ -38,6 +38,7 @@ jspm_packages/
 /lib
 /dist
 /coverage
+cdk.out
 !/package.json
 !/.npmignore
 !/LICENSE
@@ -53,4 +54,3 @@ jspm_packages/
 !/tsconfig.jest.json
 !/test
 !/.eslintrc.json
-!cdk.out
