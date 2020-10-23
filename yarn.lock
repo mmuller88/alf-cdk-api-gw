@@ -1243,6 +1243,11 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
+"@jest/create-cache-key-function@^26.5.0":
+  version "26.5.0"
+  resolved "https://registry.yarnpkg.com/@jest/create-cache-key-function/-/create-cache-key-function-26.5.0.tgz#1d07947adc51ea17766d9f0ccf5a8d6ea94c47dc"
+  integrity sha512-DJ+pEBUIqarrbv1W/C39f9YH0rJ4wsXZ/VC6JafJPlHW2HOucKceeaqTOQj9MEDQZjySxMLkOq5mfXZXNZcmWw==
+
 "@jest/environment@^26.6.1":
   version "26.6.1"
   resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-26.6.1.tgz#38a56f1cc66f96bf53befcc5ebeaf1c2dce90e9a"
@@ -1700,34 +1705,34 @@ ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
     uri-js "^4.2.2"
 
 "alf-cdk-app-pipeline@github:mmuller88/alf-cdk-app-pipeline#master":
-  version "0.0.7"
-  resolved "https://codeload.github.com/mmuller88/alf-cdk-app-pipeline/tar.gz/087a5e22abdffd5ff59e9c9115d66ddde55ef9c1"
+  version "0.0.8"
+  resolved "https://codeload.github.com/mmuller88/alf-cdk-app-pipeline/tar.gz/b3edc26db6653ffa177fb4ab8e4be232687b569c"
   dependencies:
-    "@aws-cdk/aws-cloudfront" "1.66.0"
-    "@aws-cdk/aws-codebuild" "1.66.0"
-    "@aws-cdk/aws-codecommit" "1.66.0"
-    "@aws-cdk/aws-codedeploy" "1.66.0"
-    "@aws-cdk/aws-codepipeline" "1.66.0"
-    "@aws-cdk/aws-codepipeline-actions" "1.66.0"
-    "@aws-cdk/aws-ec2" "1.66.0"
-    "@aws-cdk/aws-elasticloadbalancingv2-targets" "1.66.0"
-    "@aws-cdk/aws-iam" "1.66.0"
-    "@aws-cdk/aws-lambda" "1.66.0"
-    "@aws-cdk/aws-lambda-event-sources" "1.66.0"
-    "@aws-cdk/aws-route53" "1.66.0"
-    "@aws-cdk/aws-route53-targets" "1.66.0"
-    "@aws-cdk/aws-s3" "1.66.0"
-    "@aws-cdk/aws-s3-deployment" "1.66.0"
-    "@aws-cdk/aws-sqs" "1.66.0"
-    "@aws-cdk/aws-ssm" "1.66.0"
-    "@aws-cdk/aws-stepfunctions-tasks" "1.66.0"
-    "@aws-cdk/core" "1.66.0"
-    "@aws-cdk/pipelines" "1.66.0"
-    "@aws-solutions-constructs/aws-dynamodb-stream-lambda" "1.66.0"
-    "@aws-solutions-constructs/aws-lambda-dynamodb" "1.66.0"
-    "@aws-solutions-constructs/aws-sqs-lambda" "1.66.0"
+    "@aws-cdk/aws-cloudfront" "1.69.0"
+    "@aws-cdk/aws-codebuild" "1.69.0"
+    "@aws-cdk/aws-codecommit" "1.69.0"
+    "@aws-cdk/aws-codedeploy" "1.69.0"
+    "@aws-cdk/aws-codepipeline" "1.69.0"
+    "@aws-cdk/aws-codepipeline-actions" "1.69.0"
+    "@aws-cdk/aws-ec2" "1.69.0"
+    "@aws-cdk/aws-elasticloadbalancingv2-targets" "1.69.0"
+    "@aws-cdk/aws-iam" "1.69.0"
+    "@aws-cdk/aws-lambda" "1.69.0"
+    "@aws-cdk/aws-lambda-event-sources" "1.69.0"
+    "@aws-cdk/aws-route53" "1.69.0"
+    "@aws-cdk/aws-route53-targets" "1.69.0"
+    "@aws-cdk/aws-s3" "1.69.0"
+    "@aws-cdk/aws-s3-deployment" "1.69.0"
+    "@aws-cdk/aws-sqs" "1.69.0"
+    "@aws-cdk/aws-ssm" "1.69.0"
+    "@aws-cdk/aws-stepfunctions-tasks" "1.69.0"
+    "@aws-cdk/core" "1.69.0"
+    "@aws-cdk/pipelines" "1.69.0"
+    "@aws-solutions-constructs/aws-dynamodb-stream-lambda" "1.69.0"
+    "@aws-solutions-constructs/aws-lambda-dynamodb" "1.69.0"
+    "@aws-solutions-constructs/aws-sqs-lambda" "1.69.0"
     "@mobileposse/auto-delete-bucket" "1.55.0"
-    "@types/node" "^14.11.2"
+    "@types/node" "^14.14.2"
     source-map-support "^0.5.19"
 
 ansi-colors@^4.1.1:
@@ -1907,9 +1912,9 @@ atob@^2.1.2:
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
 aws-sdk@^2.437.0:
-  version "2.777.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.777.0.tgz#c808dfa25b4c98a5fdf2ae6df29b9861dd6a5c63"
-  integrity sha512-eUUphwNARaex2uBCCWp/UGT5LabqbCgIZDXhJp5n2kGBuNlzkZMrLe5AiSo8OnaaP2ZnfaonxZKT87Ny56EKyA==
+  version "2.778.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.778.0.tgz#9304d1b2a1f94bfd8a56169f1da20ff40f417f40"
+  integrity sha512-sIJRO7tMaztLs+gvHF/Wo+iek/rhH99+2OzharQJMS0HATPl5/EdhKgWGv1n/bNpVH+kD3n0QMQgdFu0FNUt0Q==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -5432,9 +5437,9 @@ progress@^2.0.0:
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
 projen@^0.3.121:
-  version "0.3.121"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.3.121.tgz#390a17dc142d1f5ab907b5ef3d249188982868ff"
-  integrity sha512-WZrBOi7T1z5na99VMGENj9NFNVrhNOkYaYx3neEHfxYHwKNBURSsrHo9MeOZBsaeWMcoAUZIfZay7HfK4BRkPw==
+  version "0.3.122"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.3.122.tgz#ceadeaae85beacd291a330297a03240abda16bd1"
+  integrity sha512-W2Bw13CGF50TJ/ihxSw71G9WhQyDaxxJeJHgplbPUOEq922R7HqYWChIj5cVIVm3pMRVrNFmBhokLOtsEhpPOQ==
   dependencies:
     "@iarna/toml" "^2.2.5"
     chalk "^4.1.0"
@@ -6470,10 +6475,11 @@ trim-off-newlines@^1.0.0:
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
 ts-jest@^26.1.0:
-  version "26.4.1"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.1.tgz#08ec0d3fc2c3a39e4a46eae5610b69fafa6babd0"
-  integrity sha512-F4aFq01aS6mnAAa0DljNmKr/Kk9y4HVZ1m6/rtJ0ED56cuxINGq3Q9eVAh+z5vcYKe5qnTMvv90vE8vUMFxomg==
+  version "26.4.2"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.2.tgz#00b6c970bee202ceef7c6e6e9805c4837b22dab8"
+  integrity sha512-0+MynTTzzbuy5rGjzsCKjxHJk5gY906c/FSaqQ3081+G7dp2Yygfa9hVlbrtNNcztffh1mC6Rs9jb/yHpcjsoQ==
   dependencies:
+    "@jest/create-cache-key-function" "^26.5.0"
     "@types/jest" "26.x"
     bs-logger "0.x"
     buffer-from "1.x"
