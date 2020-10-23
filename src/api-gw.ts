@@ -8,6 +8,7 @@ import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
+  allowedOrigins: string[];
   domain?: {
     domainName: string,
     certificateArn: string,
@@ -15,17 +16,6 @@ export interface ApiGwStackProps extends StackProps {
     hostedZoneId: string,
   }
 };
-
-const allowedOrigins = [
-  'https://api.alfpro.net',
-  'https://app.alfpro.net',
-  'https://www.alfpro.net',
-  'https://openapi.dev.alfpro.net',
-  'https://openapi.alfpro.net',
-  'https://api.dev.alfpro.net',
-  'https://app.dev.alfpro.net',
-  'https://www.alfpro.net',
-  'http://localhost:3000']
 
 export class ApiGwStack extends CustomStack {
 
@@ -35,7 +25,7 @@ export class ApiGwStack extends CustomStack {
     const api = new RestApi(this, 'RestApi', {
       restApiName: 'Alf Instance Service',
       defaultCorsPreflightOptions: {
-        allowOrigins: allowedOrigins,
+        allowOrigins: props.allowedOrigins,
         allowMethods: Cors.ALL_METHODS,
       }
     });
