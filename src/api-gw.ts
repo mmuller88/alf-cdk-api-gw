@@ -3,8 +3,8 @@ import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
 import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
-// import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
-// import { ApiGateway } from '@aws-cdk/aws-route53-targets';
+import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
+import { ApiGateway } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
 
 export interface ApiGwStackProps extends StackProps {
@@ -384,11 +384,11 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    // new ARecord(this, 'CustomDomainAliasRecord', {
-    //   recordName: props.domain.domainName,
-    //   zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
-    //   target: RecordTarget.fromAlias(new ApiGateway(api))
-    // });
+    new ARecord(this, 'CustomDomainAliasRecord', {
+      recordName: props.domain.domainName,
+      zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
+      target: RecordTarget.fromAlias(new ApiGateway(api))
+    });
 
     const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
       value: api.domainName?.domainName || ''
