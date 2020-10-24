@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
+import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 import { ApiGateway } from '@aws-cdk/aws-route53-targets';
@@ -340,8 +340,15 @@ export class ApiGwStack extends CustomStack {
       },
     }
 
+    const requestValidator = new RequestValidator(this, 'RequestValidator', {
+      restApi: api,
+      validateRequestBody: true,
+      validateRequestParameters: true,
+    });
+
     const createConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'createConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:createConfApi`));
     instancesConfResource.addMethod('POST', createConfApiIntegration, {
+      requestValidator,
       requestModels: {
         'application/json': newInstanceConfModel,
       },
@@ -369,6 +376,7 @@ export class ApiGwStack extends CustomStack {
 
     const updateApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'updateApi', `arn:aws:lambda:${this.region}:${this.account}:function:updateApi`));
     instanceConfResource.addMethod('PUT', updateApiIntegration, {
+      requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
       },
