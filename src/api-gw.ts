@@ -1,11 +1,12 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, DomainName, EndpointType, SecurityPolicy } from '@aws-cdk/aws-apigateway';
+import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
+import { UserPool } from '@aws-cdk/aws-cognito';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
@@ -16,6 +17,7 @@ export interface ApiGwStackProps extends StackProps {
     zoneName: string,
     hostedZoneId: string,
   },
+  userPoolArn?: string,
 };
 
 export class ApiGwStack extends CustomStack {
@@ -24,24 +26,8 @@ export class ApiGwStack extends CustomStack {
     super(scope, id, props);
 
     const api = new RestApi(this, 'RestApi', {
-      restApiName: 'Alf Instance Service 2',
-      // domainName: {
-      //   domainName: props.domain.domainName,
-      //   certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
-      //   endpointType: EndpointType.EDGE,
-      //   securityPolicy: SecurityPolicy.TLS_1_2,
-      // },
-      // deployOptions: {
-      //   stageName: props.stage,
-      // },
+      restApiName: 'Alf Instance Service',
     });
-
-    // new BasePathMappingResource(this, 'BasePath', {
-    //   basePath: '/',
-    //   domainName: props.domain.domainName,
-    //   restApiId: api.restApiId,
-    //   stage: props.stage,
-    // })
 
     const alfInstanceId = {
       maxLength: 5,
@@ -310,7 +296,7 @@ export class ApiGwStack extends CustomStack {
       validateRequestBody: true,
       validateRequestParameters: true,
     });
-    
+
     const getInstanceApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`));
     instancesResource.addMethod('GET', getInstanceApiIntegration, {
       requestValidator,
@@ -396,7 +382,7 @@ export class ApiGwStack extends CustomStack {
     });
 
     const updateApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'updateApi', `arn:aws:lambda:${this.region}:${this.account}:function:updateApi`));
-    instanceConfResource.addMethod('PUT', updateApiIntegration, {
+    const instanceConfResourcePut = instanceConfResource.addMethod('PUT', updateApiIntegration, {
       requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
@@ -412,6 +398,23 @@ export class ApiGwStack extends CustomStack {
         notFoundErrorResponse,
       ]
     });
+
+    if(props.userPoolArn){
+      const userPool = UserPool.fromUserPoolArn(scope, 'cognitoUserPool', props.userPoolArn);
+      
+      const authorizer = new CfnAuthorizer(scope, 'cfnAuth', {
+        restApiId: api.restApiId,
+        name: 'AlfCDKAuthorizer',
+        type: 'COGNITO_USER_POOLS',
+        identitySource: 'method.request.header.Authorization',
+        identityValidationExpression: 'Bearer (.*)',
+        providerArns: [userPool.userPoolArn],
+      });
+
+      const cfnInstanceConfResourcePut = instanceConfResourcePut.node.defaultChild as CfnMethod;
+      cfnInstanceConfResourcePut.authorizationType = 'COGNITO_USER_POOLS';
+      cfnInstanceConfResourcePut.authorizerId = authorizer.ref;
+    }
 
     if(props.domain){
       const domain = api.addDomainName('apiDomainName', {
