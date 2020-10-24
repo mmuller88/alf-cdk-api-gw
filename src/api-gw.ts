@@ -1,16 +1,16 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator } from '@aws-cdk/aws-apigateway';
-// import { Certificate } from '@aws-cdk/aws-certificatemanager';
-// import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
-// import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
+import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, DomainName, EndpointType, SecurityPolicy } from '@aws-cdk/aws-apigateway';
+import { Certificate } from '@aws-cdk/aws-certificatemanager';
+import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
+import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
   allowedOrigins: string[];
-  domain: {
+  domain?: {
     domainName: string,
     certificateArn: string,
     zoneName: string,
@@ -413,21 +413,26 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    // const domain = new DomainName(this, 'custom-domain', {
-    //   domainName: props.domain.domainName,
-    //   certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
-    //   endpointType: EndpointType.EDGE,
-    //   securityPolicy: SecurityPolicy.TLS_1_2,
-    // });
+    if(props.domain){
+      const domain = api.addDomainName('apiDomainName', {
+        domainName: props.domain.domainName,
+        certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
+        endpointType: EndpointType.EDGE,
+        securityPolicy: SecurityPolicy.TLS_1_2,
+      })
 
-    // domain.addBasePathMapping(api, { basePath: props.stage });
+      new ARecord(this, 'CustomDomainAliasRecord', {
+        recordName: props.domain.domainName,
+        zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
+        target: RecordTarget.fromAlias(new ApiGatewayDomain(domain)),
+      });
 
-    // new ARecord(this, 'CustomDomainAliasRecord', {
-    //   recordName: props.domain.domainName,
-    //   zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
-    //   target: RecordTarget.fromAlias(new ApiGatewayDomain(domain)),
-    // });
-
+      const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
+        value: api.domainName?.domainName || '',
+      });
+      this.cfnOutputs['ApiDomainName'] = apiDomainName;
+    }
+    
     const restApiEndPoint = new CfnOutput(this, 'RestApiEndPoint', {
       value: api.urlForPath(),
     });
@@ -437,11 +442,6 @@ export class ApiGwStack extends CustomStack {
       value: api.restApiId,
     });
     this.cfnOutputs['RestApiId'] = restApiId;
-
-    // const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
-    //   value: domain.domainName || '',
-    // });
-    // this.cfnOutputs['ApiDomainName'] = apiDomainName;
   }
 }
 

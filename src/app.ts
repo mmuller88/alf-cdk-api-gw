@@ -39,12 +39,12 @@ const pipelineAppProps: PipelineAppProps = {
           'https://app.dev.alfpro.net',
           'http://localhost:3000'
         ],
-        domain: {
-          domainName: `api.${sharedDevAccountProps.zoneName.slice(0,-1)}`,
-          zoneName: sharedDevAccountProps.zoneName,
-          hostedZoneId: sharedDevAccountProps.hostedZoneId,
-          certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
-        },
+        // domain: {
+        //   domainName: `api.${sharedDevAccountProps.zoneName.slice(0,-1)}`,
+        //   zoneName: sharedDevAccountProps.zoneName,
+        //   hostedZoneId: sharedDevAccountProps.hostedZoneId,
+        //   certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
+        // },
       } : { // prod
         allowedOrigins: [
           'https://api.alfpro.net',
