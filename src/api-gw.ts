@@ -1,10 +1,11 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { EndpointType, SecurityPolicy, RestApi, Cors, MockIntegration, JsonSchemaType, JsonSchema, Model } from '@aws-cdk/aws-apigateway';
+import { EndpointType, SecurityPolicy, RestApi, Cors, MockIntegration, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
+import { Function } from '@aws-cdk/aws-lambda';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
@@ -14,7 +15,7 @@ export interface ApiGwStackProps extends StackProps {
     certificateArn: string,
     zoneName: string,
     hostedZoneId: string,
-  }
+  },
 };
 
 export class ApiGwStack extends CustomStack {
@@ -282,6 +283,7 @@ export class ApiGwStack extends CustomStack {
       },
     });
 
+    new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:apigateway:${this.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi/invocations`))
     instancesResource.addMethod('GET', mock, {
       requestParameters: {
         'method.request.querystring.userId': false,
@@ -378,7 +380,7 @@ export class ApiGwStack extends CustomStack {
       const domainName = api.addDomainName('apiDomainName', {
         domainName: domain.domainName,
         certificate: Certificate.fromCertificateArn(this, 'Certificate', domain.certificateArn),
-        endpointType: EndpointType.EDGE, // default is REGIONAL
+        endpointType: EndpointType.EDGE,
         securityPolicy: SecurityPolicy.TLS_1_2,
       });
 
