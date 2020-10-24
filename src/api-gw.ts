@@ -1,10 +1,10 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { EndpointType, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, SecurityPolicy, DomainName } from '@aws-cdk/aws-apigateway';
-import { Certificate } from '@aws-cdk/aws-certificatemanager';
-import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
-import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
+import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator } from '@aws-cdk/aws-apigateway';
+// import { Certificate } from '@aws-cdk/aws-certificatemanager';
+// import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
+// import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
 
 export interface ApiGwStackProps extends StackProps {
@@ -124,6 +124,17 @@ export class ApiGwStack extends CustomStack {
       additionalProperties: false
     };
 
+    const tags = {
+      type: JsonSchemaType.OBJECT,
+      properties: {
+        name: {
+          type: JsonSchemaType.STRING,
+          description: "A Name which will be attached as Name Tag to the EC2 Instance",
+          // default: "No Name",
+        }
+      }
+    }
+
     const instanceConfSchema: JsonSchema = {
       additionalProperties: false,
       allOf: [{
@@ -131,9 +142,7 @@ export class ApiGwStack extends CustomStack {
         type: JsonSchemaType.OBJECT,
         properties: {
           alfType,
-          // tags: {
-          //   ref: "https://apigateway.amazonaws.com/restapis/nd7foc8cn9/models/tags"
-          // },
+          tags,
           userId,
         },
         additionalProperties: false
@@ -151,9 +160,7 @@ export class ApiGwStack extends CustomStack {
       type: JsonSchemaType.OBJECT,
       properties: {
         alfType,
-        // "tags" : {
-        //   "$ref":"https://apigateway.amazonaws.com/restapis/nd7foc8cn9/models/tags"
-        // },
+        tags,
         userId,
       },
       additionalProperties: false,
@@ -296,9 +303,17 @@ export class ApiGwStack extends CustomStack {
         allowMethods: Cors.ALL_METHODS,
       },
     });
+
+    const requestValidator = new RequestValidator(this, 'RequestValidator', {
+      requestValidatorName: 'validator',
+      restApi: api,
+      validateRequestBody: true,
+      validateRequestParameters: true,
+    });
     
     const getInstanceApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`));
     instancesResource.addMethod('GET', getInstanceApiIntegration, {
+      requestValidator,
       requestParameters: {
         'method.request.querystring.userId': false,
       },
@@ -334,8 +349,9 @@ export class ApiGwStack extends CustomStack {
 
     const getAllConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getAllConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getAllConfApi`));
     instancesConfResource.addMethod('GET', getAllConfApiIntegration, {
+      requestValidator,
       requestParameters: {
-        'method.request.querystring.userId': true,
+        'method.request.querystring.userId': false,
       },
       methodResponses: [
         response200WithResponseModel(instanceConfListModel),
@@ -349,12 +365,6 @@ export class ApiGwStack extends CustomStack {
         'application/json': instanceConfModel,
       },
     }
-
-    const requestValidator = new RequestValidator(this, 'RequestValidator', {
-      restApi: api,
-      validateRequestBody: true,
-      validateRequestParameters: true,
-    });
 
     const createConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'createConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:createConfApi`));
     instancesConfResource.addMethod('POST', createConfApiIntegration, {
@@ -370,8 +380,9 @@ export class ApiGwStack extends CustomStack {
     });
 
     const getOneConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getOneConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getOneConfApi`));
-    const instanceConfResource = instancesConfResource.addResource('alfInstanceId');
+    const instanceConfResource = instancesConfResource.addResource('{alfInstanceId}');
     instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
+      requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
         'method.request.querystring.userId': true,
@@ -402,20 +413,20 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    const domain = new DomainName(this, 'custom-domain', {
-      domainName: props.domain.domainName,
-      certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
-      endpointType: EndpointType.EDGE,
-      securityPolicy: SecurityPolicy.TLS_1_2,
-    });
+    // const domain = new DomainName(this, 'custom-domain', {
+    //   domainName: props.domain.domainName,
+    //   certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
+    //   endpointType: EndpointType.EDGE,
+    //   securityPolicy: SecurityPolicy.TLS_1_2,
+    // });
 
-    domain.addBasePathMapping(api, { basePath: props.stage });
+    // domain.addBasePathMapping(api, { basePath: props.stage });
 
-    new ARecord(this, 'CustomDomainAliasRecord', {
-      recordName: props.domain.domainName,
-      zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
-      target: RecordTarget.fromAlias(new ApiGatewayDomain(domain)),
-    });
+    // new ARecord(this, 'CustomDomainAliasRecord', {
+    //   recordName: props.domain.domainName,
+    //   zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
+    //   target: RecordTarget.fromAlias(new ApiGatewayDomain(domain)),
+    // });
 
     const restApiEndPoint = new CfnOutput(this, 'RestApiEndPoint', {
       value: api.urlForPath(),
@@ -427,10 +438,10 @@ export class ApiGwStack extends CustomStack {
     });
     this.cfnOutputs['RestApiId'] = restApiId;
 
-    const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
-      value: api.domainName?.domainName || '',
-    });
-    this.cfnOutputs['ApiDomainName'] = apiDomainName;
+    // const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
+    //   value: domain.domainName || '',
+    // });
+    // this.cfnOutputs['ApiDomainName'] = apiDomainName;
   }
 }
 
