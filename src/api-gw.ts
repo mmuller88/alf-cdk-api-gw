@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { EndpointType, SecurityPolicy, RestApi, Cors, MockIntegration, JsonSchemaType, JsonSchema } from '@aws-cdk/aws-apigateway';
+import { EndpointType, SecurityPolicy, RestApi, Cors, MockIntegration, JsonSchemaType, JsonSchema, Model } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
@@ -136,6 +136,11 @@ export class ApiGwStack extends CustomStack {
       }
     })
 
+    const instanceConfModel = api.addModel('InstanceConf', {
+      modelName: 'InstanceConf',
+      schema: instanceConfSchema,
+    });
+
     // const instanceList: Model = 
     const instanceListModel = api.addModel('InstanceList', {
       modelName: 'InstanceList',
@@ -194,6 +199,27 @@ export class ApiGwStack extends CustomStack {
     });
     validationErrorModel;
 
+    const authErrorResponse = {
+      statusCode: '401',
+      responseModels: {
+        'application/json': authErrorModel,
+      }
+    };
+
+    const validationErrorResponse = {
+      statusCode: '400',
+      responseModels: {
+        'application/json': validationErrorModel,
+      },
+    };
+
+    const notFoundErrorResponse = {
+      statusCode: '404',
+      responseModels: {
+        'application/json': notFoundErrorModel,
+      },
+    };
+
     const mock = new MockIntegration({});
 
     const instancesResource = api.root.addResource('instances');
@@ -202,17 +228,10 @@ export class ApiGwStack extends CustomStack {
       requestParameters: {
         'method.request.querystring.userId': false,
       },
-      methodResponses: [{
-        statusCode: '200',
-        responseModels: {
-          'application/json': instanceListModel,
-        },
-      },{
-        statusCode: '401',
-        responseModels: {
-          'application/json': authErrorModel,
-        },
-      }]
+      methodResponses: [
+        response200WithResponseModel(instanceListModel),
+        authErrorResponse,
+      ]
     });
 
     const instanceResource = instancesResource.addResource('{alfInstanceId}');
@@ -225,7 +244,11 @@ export class ApiGwStack extends CustomStack {
         responseModels: {
           'application/json': instanceModel,
         },
-      }]
+      },
+        validationErrorResponse,
+        authErrorResponse,
+        notFoundErrorResponse,
+      ]
     });
 
     const instancesConfResource = api.root.addResource('instances-conf');
@@ -233,12 +256,33 @@ export class ApiGwStack extends CustomStack {
       requestParameters: {
         'method.request.querystring.userId': true,
       },
-      methodResponses: [{
-        statusCode: '200',
-        responseModels: {
-          'application/json': instanceConfListModel,
-        },
-      }]
+      methodResponses: [
+        response200WithResponseModel(instanceConfListModel),
+        authErrorResponse,
+      ]
+    });
+
+    instancesConfResource.addMethod('POST', mock, {
+      methodResponses: [
+        response200WithResponseModel(instanceConfModel),
+        authErrorResponse,
+        validationErrorResponse,
+        notFoundErrorResponse,
+      ]
+    });
+
+    const instanceConfResource = instancesConfResource.addResource('alfInstanceId');
+    instanceConfResource.addMethod('GET', mock, {
+      requestParameters: {
+        'method.request.path.alfInstanceId': true,
+        'method.request.querystring.userId': true,
+      },
+      methodResponses: [
+        response200WithResponseModel(instanceConfModel),
+        validationErrorResponse,
+        authErrorResponse,
+        notFoundErrorResponse,
+      ]
     });
 
     if(props.domain){
@@ -261,5 +305,14 @@ export class ApiGwStack extends CustomStack {
       value: api.domainName?.domainName || ''
     });
     this.cfnOutputs['ApiDomainName'] = apiDomainName;
+  }
+}
+
+function response200WithResponseModel(model: Model) {
+  return {
+    statusCode: '200',
+    responseModels: {
+      'application/json': model,
+    },
   }
 }
