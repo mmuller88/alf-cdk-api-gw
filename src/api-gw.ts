@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { EndpointType, SecurityPolicy, RestApi, Cors, MockIntegration, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
+import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
@@ -274,17 +274,15 @@ export class ApiGwStack extends CustomStack {
       },
     };
 
-    const mock = new MockIntegration({});
-
     const instancesResource = api.root.addResource('instances', {
       defaultCorsPreflightOptions: {
         allowOrigins: props.allowedOrigins,
         allowMethods: Cors.ALL_METHODS,
       },
     });
-
-    new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:apigateway:${this.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi/invocations`))
-    instancesResource.addMethod('GET', mock, {
+    
+    const getInstanceApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`));
+    instancesResource.addMethod('GET', getInstanceApiIntegration, {
       requestParameters: {
         'method.request.querystring.userId': false,
       },
@@ -295,7 +293,7 @@ export class ApiGwStack extends CustomStack {
     });
 
     const instanceResource = instancesResource.addResource('{alfInstanceId}');
-    instanceResource.addMethod('GET', mock, {
+    instanceResource.addMethod('GET', getInstanceApiIntegration, {
       requestParameters: {
         'method.request.path.alfInstanceId': true,
       },
@@ -317,7 +315,9 @@ export class ApiGwStack extends CustomStack {
         allowMethods: Cors.ALL_METHODS,
       },
     });
-    instancesConfResource.addMethod('GET', mock, {
+
+    const getAllConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getAllConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getAllConfApi`));
+    instancesConfResource.addMethod('GET', getAllConfApiIntegration, {
       requestParameters: {
         'method.request.querystring.userId': true,
       },
@@ -334,7 +334,8 @@ export class ApiGwStack extends CustomStack {
       },
     }
 
-    instancesConfResource.addMethod('POST', mock, {
+    const createConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'createConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:createConfApi`));
+    instancesConfResource.addMethod('POST', createConfApiIntegration, {
       requestModels: {
         'application/json': newInstanceConfModel,
       },
@@ -345,8 +346,9 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
+    const getOneConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getOneConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getOneConfApi`));
     const instanceConfResource = instancesConfResource.addResource('alfInstanceId');
-    instanceConfResource.addMethod('GET', mock, {
+    instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
       requestParameters: {
         'method.request.path.alfInstanceId': true,
         'method.request.querystring.userId': true,
@@ -359,7 +361,8 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    instanceConfResource.addMethod('PUT', mock, {
+    const updateApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'updateApi', `arn:aws:lambda:${this.region}:${this.account}:function:updateApi`));
+    instanceConfResource.addMethod('PUT', updateApiIntegration, {
       requestParameters: {
         'method.request.path.alfInstanceId': true,
       },
