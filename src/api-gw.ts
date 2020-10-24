@@ -24,10 +24,6 @@ export class ApiGwStack extends CustomStack {
 
     const api = new RestApi(this, 'RestApi', {
       restApiName: 'Alf Instance Service',
-      defaultCorsPreflightOptions: {
-        allowOrigins: props.allowedOrigins,
-        allowMethods: Cors.ALL_METHODS,
-      },
     });
 
     const alfInstanceId = {
@@ -222,7 +218,12 @@ export class ApiGwStack extends CustomStack {
 
     const mock = new MockIntegration({});
 
-    const instancesResource = api.root.addResource('instances');
+    const instancesResource = api.root.addResource('instances', {
+      defaultCorsPreflightOptions: {
+        allowOrigins: props.allowedOrigins,
+        allowMethods: Cors.ALL_METHODS,
+      },
+    });
 
     instancesResource.addMethod('GET', mock, {
       requestParameters: {
@@ -251,7 +252,12 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    const instancesConfResource = api.root.addResource('instances-conf');
+    const instancesConfResource = api.root.addResource('instances-conf', {
+      defaultCorsPreflightOptions: {
+        allowOrigins: props.allowedOrigins,
+        allowMethods: Cors.ALL_METHODS,
+      },
+    });
     instancesConfResource.addMethod('GET', mock, {
       requestParameters: {
         'method.request.querystring.userId': true,
