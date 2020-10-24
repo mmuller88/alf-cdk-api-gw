@@ -390,17 +390,17 @@ export class ApiGwStack extends CustomStack {
       target: RecordTarget.fromAlias(new ApiGateway(api))
     });
 
-    const restApiEndPoint = new CfnOutput(scope, 'RestApiEndPoint', {
+    const restApiEndPoint = new CfnOutput(this, 'RestApiEndPoint', {
       value: api.urlForPath()
     });
     this.cfnOutputs['RestApiEndPoint'] = restApiEndPoint;
 
-    const restApiId = new CfnOutput(scope, 'RestApiId', {
+    const restApiId = new CfnOutput(this, 'RestApiId', {
       value: api.restApiId
     });
     this.cfnOutputs['RestApiId'] = restApiId;
 
-    const apiDomainName = new CfnOutput(scope, 'ApiDomainName', {
+    const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
       value: api.domainName?.domainName || ''
     });
     this.cfnOutputs['ApiDomainName'] = apiDomainName;
