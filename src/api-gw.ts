@@ -87,35 +87,37 @@ export class ApiGwStack extends CustomStack {
       description: "Simple user name. Please use your user name from the system.",
     };
 
+    const alfType = {
+      required: [ "ec2InstanceType", "gitRepo" ],
+      type: JsonSchemaType.OBJECT,
+      properties: {
+        ec2InstanceType: {
+          type: JsonSchemaType.STRING,
+          description: "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
+          enum: [ "t2.large", "t2.xlarge" ],
+          // default: "t2.large"
+        },
+        gitRepo: {
+          type: JsonSchemaType.STRING,
+          description: "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
+          enum: [ "alf-ec2-1" ],
+          // default: "alf-ec2-1"
+        }
+      },
+      additionalProperties: false
+    };
+
     const instanceConfSchema: JsonSchema = {
       additionalProperties: false,
       allOf: [{
         required: [ "userId" ],
         type: JsonSchemaType.OBJECT,
         properties: {
-          alfType: {
-            required: [ "ec2InstanceType", "gitRepo" ],
-            type: JsonSchemaType.OBJECT,
-            properties: {
-              ec2InstanceType: {
-                type: JsonSchemaType.STRING,
-                description: "Supported Ec2 Instance Type. Supported are:\nt2.large - 2 CPU, 8 GB RAM\nt2.xlarge - 4 CPU, 16 GB RAM\n",
-                enum: [ "t2.large", "t2.xlarge" ],
-                // default: "t2.large"
-              },
-              gitRepo: {
-                type: JsonSchemaType.STRING,
-                description: "Name of supported Alfresco Docker Compose Deployment deployed with the Alfresco installer.\nalf-ec-1 : ACS 6.2 Community, ACA\n",
-                enum: [ "alf-ec2-1" ],
-                // default: "alf-ec2-1"
-              }
-            },
-            additionalProperties: false
-          },
+          alfType,
           // tags: {
           //   ref: "https://apigateway.amazonaws.com/restapis/nd7foc8cn9/models/tags"
           // },
-          userId
+          userId,
         },
         additionalProperties: false
       }, {
@@ -126,6 +128,19 @@ export class ApiGwStack extends CustomStack {
         }
       }]
     }
+
+    const newInstanceConfSchema: JsonSchema = {
+      required: [ "userId" ],
+      type: JsonSchemaType.OBJECT,
+      properties: {
+        alfType,
+        // "tags" : {
+        //   "$ref":"https://apigateway.amazonaws.com/restapis/nd7foc8cn9/models/tags"
+        // },
+        userId,
+      },
+      additionalProperties: false,
+    };
 
     const putInstanceConfSchema: JsonSchema = {
       required: [ "userId" ],
@@ -164,6 +179,11 @@ export class ApiGwStack extends CustomStack {
     const instanceModel = api.addModel('Instance', {
       modelName: 'Instance',
       schema: instanceSchema,
+    });
+
+    const newInstanceConfModel = api.addModel('NewInstanceConf', {
+      modelName: 'NewInstanceConf',
+      schema: newInstanceConfSchema,
     });
 
     const putInstanceConfModel = api.addModel('PutInstanceConf', {
@@ -314,13 +334,12 @@ export class ApiGwStack extends CustomStack {
 
     instancesConfResource.addMethod('POST', mock, {
       requestModels: {
-        'application/json': putInstanceConfModel,
+        'application/json': newInstanceConfModel,
       },
       methodResponses: [
         response201WithResponse,
         authErrorResponse,
         validationErrorResponse,
-        notFoundErrorResponse,
       ]
     });
 
