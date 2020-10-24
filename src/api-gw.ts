@@ -4,13 +4,13 @@ import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
 import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
-import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
+import { ApiGateway } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
   allowedOrigins: string[];
-  domain?: {
+  domain: {
     domainName: string,
     certificateArn: string,
     zoneName: string,
@@ -25,6 +25,12 @@ export class ApiGwStack extends CustomStack {
 
     const api = new RestApi(this, 'RestApi', {
       restApiName: 'Alf Instance Service',
+      domainName: {
+        domainName: props.domain.domainName,
+        certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
+        endpointType: EndpointType.EDGE,
+        securityPolicy: SecurityPolicy.TLS_1_2,
+      }
     });
 
     const alfInstanceId = {
@@ -378,21 +384,11 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    if(props.domain){
-      const domain = props.domain;
-      const domainName = api.addDomainName('apiDomainName', {
-        domainName: domain.domainName,
-        certificate: Certificate.fromCertificateArn(this, 'Certificate', domain.certificateArn),
-        endpointType: EndpointType.EDGE,
-        securityPolicy: SecurityPolicy.TLS_1_2,
-      });
-
-      new ARecord(this, 'CustomDomainAliasRecord', {
-        recordName: domain.domainName,
-        zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: domain.zoneName, hostedZoneId: domain.hostedZoneId}),
-        target: RecordTarget.fromAlias(new ApiGatewayDomain(domainName))
-      });
-    }
+    new ARecord(this, 'CustomDomainAliasRecord', {
+      recordName: props.domain.domainName,
+      zone: HostedZone.fromHostedZoneAttributes(this, 'HostedZoneId', {zoneName: props.domain.zoneName, hostedZoneId: props.domain.hostedZoneId}),
+      target: RecordTarget.fromAlias(new ApiGateway(api))
+    });
 
     const apiDomainName = new CfnOutput(this, 'ApiDomainName', {
       value: api.domainName?.domainName || ''
