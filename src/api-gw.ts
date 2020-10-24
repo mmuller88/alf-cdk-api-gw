@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod } from '@aws-cdk/aws-apigateway';
+import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod, Method } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
@@ -17,7 +17,12 @@ export interface ApiGwStackProps extends StackProps {
     zoneName: string,
     hostedZoneId: string,
   },
-  userPoolArn?: string,
+  auth?: {
+    mockAuth?: {
+      mockLambdaArn: string,
+    },
+    userPoolArn?: string,
+  },
 };
 
 export class ApiGwStack extends CustomStack {
@@ -298,7 +303,7 @@ export class ApiGwStack extends CustomStack {
     });
 
     const getInstanceApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`));
-    instancesResource.addMethod('GET', getInstanceApiIntegration, {
+    const instancesResourceGet = instancesResource.addMethod('GET', getInstanceApiIntegration, {
       requestValidator,
       requestParameters: {
         'method.request.querystring.userId': false,
@@ -310,7 +315,7 @@ export class ApiGwStack extends CustomStack {
     });
 
     const instanceResource = instancesResource.addResource('{alfInstanceId}');
-    instanceResource.addMethod('GET', getInstanceApiIntegration, {
+    const instanceResourceGet = instanceResource.addMethod('GET', getInstanceApiIntegration, {
       requestParameters: {
         'method.request.path.alfInstanceId': true,
       },
@@ -334,7 +339,7 @@ export class ApiGwStack extends CustomStack {
     });
 
     const getAllConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getAllConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getAllConfApi`));
-    instancesConfResource.addMethod('GET', getAllConfApiIntegration, {
+    const instancesConfResourceGet = instancesConfResource.addMethod('GET', getAllConfApiIntegration, {
       requestValidator,
       requestParameters: {
         'method.request.querystring.userId': false,
@@ -353,7 +358,7 @@ export class ApiGwStack extends CustomStack {
     }
 
     const createConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'createConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:createConfApi`));
-    instancesConfResource.addMethod('POST', createConfApiIntegration, {
+    const instancesConfResourcePost = instancesConfResource.addMethod('POST', createConfApiIntegration, {
       requestValidator,
       requestModels: {
         'application/json': newInstanceConfModel,
@@ -367,7 +372,7 @@ export class ApiGwStack extends CustomStack {
 
     const getOneConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getOneConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getOneConfApi`));
     const instanceConfResource = instancesConfResource.addResource('{alfInstanceId}');
-    instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
+    const instanceConfResourceGet = instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
       requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
@@ -399,21 +404,34 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    if(props.userPoolArn){
-      const userPool = UserPool.fromUserPoolArn(scope, 'cognitoUserPool', props.userPoolArn);
+    if(props.auth) {
+      let authorizer;
+      if(props.auth.mockAuth) {
+        authorizer = new CfnAuthorizer(this, 'cfnAuthMockLambda', {
+          restApiId: api.restApiId,
+          name: 'MockLambdaAuthorizer',
+          type: 'TOKEN',
+          identitySource: 'method.request.header.Authorization',
+          authorizerUri: props.auth.mockAuth.mockLambdaArn,
+        });
+      } else {
+        const userPool = UserPool.fromUserPoolArn(this, 'cognitoUserPool', props.auth.userPoolArn || '');
       
-      const authorizer = new CfnAuthorizer(scope, 'cfnAuth', {
-        restApiId: api.restApiId,
-        name: 'AlfCDKAuthorizer',
-        type: 'COGNITO_USER_POOLS',
-        identitySource: 'method.request.header.Authorization',
-        identityValidationExpression: 'Bearer (.*)',
-        providerArns: [userPool.userPoolArn],
-      });
-
-      const cfnInstanceConfResourcePut = instanceConfResourcePut.node.defaultChild as CfnMethod;
-      cfnInstanceConfResourcePut.authorizationType = 'COGNITO_USER_POOLS';
-      cfnInstanceConfResourcePut.authorizerId = authorizer.ref;
+        authorizer = new CfnAuthorizer(this, 'cfnAuthCognito', {
+          restApiId: api.restApiId,
+          name: 'CognitoAuthorizer',
+          type: 'COGNITO_USER_POOLS',
+          identitySource: 'method.request.header.Authorization',
+          identityValidationExpression: 'Bearer (.*)',
+          providerArns: [userPool.userPoolArn],
+        });
+      }
+      addCognitoAuthorizer(instancesResourceGet, authorizer);
+      addCognitoAuthorizer(instanceResourceGet, authorizer);
+      addCognitoAuthorizer(instancesConfResourceGet, authorizer);
+      addCognitoAuthorizer(instancesConfResourcePost, authorizer);
+      addCognitoAuthorizer(instanceConfResourceGet, authorizer);
+      addCognitoAuthorizer(instanceConfResourcePut, authorizer);
     }
 
     if(props.domain){
@@ -455,4 +473,10 @@ function response200WithResponseModel(model: Model) {
       'application/json': model,
     },
   }
+}
+
+function addCognitoAuthorizer(method: Method, cfnAuthorizer: CfnAuthorizer) {
+  const cfnInstanceConfResourcePut = method.node.defaultChild as CfnMethod;
+  cfnInstanceConfResourcePut.authorizationType = cfnAuthorizer.type === 'TOKEN' ? 'CUSTOM' : cfnAuthorizer.type;
+  cfnInstanceConfResourcePut.authorizerId = cfnAuthorizer.ref;
 }

@@ -1,4 +1,4 @@
-import { sharedDevAccountProps, sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
+import { sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
 import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 import { name } from '../package.json';
 import { ApiGwStack } from './api-gw';
@@ -46,7 +46,12 @@ const pipelineAppProps: PipelineAppProps = {
         //   hostedZoneId: sharedDevAccountProps.hostedZoneId,
         //   certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
         // },
-        userPoolArn: `arn:aws:cognito-idp:${stageAccount.account.region}:${stageAccount.account.id}:userpool/${stageAccount.account.region}_xI5xo2eys`,
+        auth: {
+          mockAuth: {
+            mockLambdaArn: `arn:aws:apigateway:${stageAccount.account.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${stageAccount.account.region}:${stageAccount.account.id}:function:updateApi/invocations`,
+          },
+          userPoolArn: undefined,
+        },
       } : { // prod
         allowedOrigins: [
           'https://api.alfpro.net',
@@ -61,7 +66,10 @@ const pipelineAppProps: PipelineAppProps = {
           hostedZoneId: sharedProdAccountProps.hostedZoneId,
           certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/62010fca-125e-4780-8d71-7d745ff91789`
         },
-        userPoolArn: '',
+        auth: {
+          mockAuth: undefined,
+          userPoolArn: `arn:aws:cognito-idp:${stageAccount.account.region}:${stageAccount.account.id}:userpool/${stageAccount.account.region}_lFlTwabjJ`,
+        },
       })
     };
 
@@ -74,6 +82,7 @@ const pipelineAppProps: PipelineAppProps = {
       stage: stageAccount.stage,
       allowedOrigins: alfCdkSpecifics.allowedOrigins,
       domain: alfCdkSpecifics.domain,
+      auth: alfCdkSpecifics.auth,
     });
   },
   manualApprovals: (account) => {
