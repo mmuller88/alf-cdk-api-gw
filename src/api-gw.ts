@@ -1,8 +1,8 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
-// import { Certificate } from '@aws-cdk/aws-certificatemanager';
+import { EndpointType, SecurityPolicy, RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration } from '@aws-cdk/aws-apigateway';
+import { Certificate } from '@aws-cdk/aws-certificatemanager';
 // import { ARecord, HostedZone, RecordTarget } from '@aws-cdk/aws-route53';
 // import { ApiGateway } from '@aws-cdk/aws-route53-targets';
 import { Function } from '@aws-cdk/aws-lambda';
@@ -25,12 +25,12 @@ export class ApiGwStack extends CustomStack {
 
     const api = new RestApi(this, 'RestApi', {
       restApiName: 'Alf Instance Service',
-      // domainName: {
-      //   domainName: props.domain.domainName,
-      //   certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
-      //   endpointType: EndpointType.EDGE,
-      //   securityPolicy: SecurityPolicy.TLS_1_2,
-      // },
+      domainName: {
+        domainName: props.domain.domainName,
+        certificate: Certificate.fromCertificateArn(this, 'Certificate', props.domain.certificateArn),
+        endpointType: EndpointType.EDGE,
+        securityPolicy: SecurityPolicy.TLS_1_2,
+      },
     });
 
     const alfInstanceId = {
