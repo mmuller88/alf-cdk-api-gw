@@ -71,6 +71,22 @@ export class ApiGwStack extends CustomStack {
       additionalProperties: false
     }
 
+    const expectedStatus = {
+      type: JsonSchemaType.STRING,
+      description: "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
+      enum: [ "running", "terminated", "stopped" ],
+      // default: "running"
+    };
+
+    const userId = {
+      maxLength: 64,
+      minLength: 2,
+      pattern: "[a-zA-Z0-9]{2,64}",
+      type: JsonSchemaType.STRING,
+      additionalProperties: false,
+      description: "Simple user name. Please use your user name from the system.",
+    };
+
     const instanceConfSchema: JsonSchema = {
       additionalProperties: false,
       allOf: [{
@@ -99,29 +115,27 @@ export class ApiGwStack extends CustomStack {
           // tags: {
           //   ref: "https://apigateway.amazonaws.com/restapis/nd7foc8cn9/models/tags"
           // },
-          userId: {
-            maxLength: 64,
-            minLength: 2,
-            pattern: "[a-zA-Z0-9]{2,64}",
-            type: JsonSchemaType.STRING,
-            additionalProperties: false,
-            description: "Simple user name. Please use your user name from the system."
-          }
+          userId
         },
         additionalProperties: false
       }, {
         required: [ "alfInstanceId", "expectedStatus" ],
         properties: {
           alfInstanceId,
-          expectedStatus: {
-            type: JsonSchemaType.STRING,
-            description: "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
-            enum: [ "running", "terminated", "stopped" ],
-            // default: "running"
-          }
+          expectedStatus,
         }
       }]
     }
+
+    const putInstanceConfSchema: JsonSchema = {
+      required: [ "userId" ],
+      type: JsonSchemaType.OBJECT,
+      properties: {
+        expectedStatus,
+        userId,
+      },
+      additionalProperties: false,
+    };
 
     const instanceConfListModel = api.addModel('InstanceConfList', {
       modelName: 'InstanceConfList',
@@ -152,6 +166,11 @@ export class ApiGwStack extends CustomStack {
       schema: instanceSchema,
     });
 
+    const putInstanceConfModel = api.addModel('PutInstanceConf', {
+      modelName: 'PutInstanceConf',
+      schema: putInstanceConfSchema,
+    });
+
     // Error Model
     const errorSchema = {
       required: [ "message" ],
@@ -177,7 +196,6 @@ export class ApiGwStack extends CustomStack {
       modelName: 'NotFoundError',
       schema: errorSchema,
     });
-    notFoundErrorModel;
 
     const validationErrorModel = api.addModel('ValidationError', {
       modelName: 'ValidationError',
@@ -193,7 +211,19 @@ export class ApiGwStack extends CustomStack {
         }
       },
     });
-    validationErrorModel;
+
+    const updateErrorModel = api.addModel('UpdateError', {
+      modelName: 'UpdateError',
+      schema: {
+        required: [ "message", "instanceConf" ],
+        properties: {
+          message: {
+            type: JsonSchemaType.STRING,
+          },
+          instanceConf: instanceConfSchema,
+        }
+      },
+    });
 
     const authErrorResponse = {
       statusCode: '401',
@@ -206,6 +236,13 @@ export class ApiGwStack extends CustomStack {
       statusCode: '400',
       responseModels: {
         'application/json': validationErrorModel,
+      },
+    };
+
+    const updateErrorResponse = {
+      statusCode: '403',
+      responseModels: {
+        'application/json': updateErrorModel,
       },
     };
 
@@ -268,9 +305,19 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
+    const response201WithResponse = {
+      statusCode: '201',
+      responseModels: {
+        'application/json': instanceConfModel,
+      },
+    }
+
     instancesConfResource.addMethod('POST', mock, {
+      requestModels: {
+        'application/json': putInstanceConfModel,
+      },
       methodResponses: [
-        response200WithResponseModel(instanceConfModel),
+        response201WithResponse,
         authErrorResponse,
         validationErrorResponse,
         notFoundErrorResponse,
@@ -287,6 +334,22 @@ export class ApiGwStack extends CustomStack {
         response200WithResponseModel(instanceConfModel),
         validationErrorResponse,
         authErrorResponse,
+        notFoundErrorResponse,
+      ]
+    });
+
+    instanceConfResource.addMethod('PUT', mock, {
+      requestParameters: {
+        'method.request.path.alfInstanceId': true,
+      },
+      requestModels: {
+        'application/json': putInstanceConfModel,
+      },
+      methodResponses: [
+        response201WithResponse,
+        validationErrorResponse,
+        authErrorResponse,
+        updateErrorResponse,
         notFoundErrorResponse,
       ]
     });
