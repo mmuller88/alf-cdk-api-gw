@@ -106,6 +106,12 @@ export class ApiGwStack extends CustomStack {
       additionalProperties: false
     }
 
+    const instanceListSchema: JsonSchema = {
+      type: JsonSchemaType.ARRAY,
+      additionalProperties: false,
+      items : [instanceSchema],
+    }
+
     const expectedStatus = {
       type: JsonSchemaType.STRING,
       description: "The state you are allow to put your instance in. Warning putting instances into terminated will delete the instance-conf and instance!",
@@ -211,11 +217,12 @@ export class ApiGwStack extends CustomStack {
     // const instanceList: Model = 
     const instanceListModel = api.addModel('InstanceList', {
       modelName: 'InstanceList',
-      schema: {
-        type: JsonSchemaType.ARRAY,
-        additionalProperties: false,
-        items : [instanceSchema]
-      }
+      schema: instanceListSchema,
+      // schema: {
+      //   type: JsonSchemaType.ARRAY,
+      //   additionalProperties: false,
+      //   items : [instanceSchema]
+      // }
     });
 
     const instanceModel = api.addModel('Instance', {
