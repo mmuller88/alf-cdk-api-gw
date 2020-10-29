@@ -1,4 +1,4 @@
-import { sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
+import { sharedDevAccountProps, sharedProdAccountProps } from 'alf-cdk-app-pipeline/accountConfig';
 import { PipelineApp, PipelineAppProps } from 'alf-cdk-app-pipeline/pipeline-app';
 import { name } from '../package.json';
 import { ApiGwStack } from './api-gw';
@@ -39,18 +39,20 @@ const pipelineAppProps: PipelineAppProps = {
           'https://app.dev.alfpro.net',
           'http://localhost:3000'
         ],
-        domain: undefined,
-        // domain: {
-        //   domainName: `api.${sharedDevAccountProps.zoneName.slice(0,-1)}`,
-        //   zoneName: sharedDevAccountProps.zoneName,
-        //   hostedZoneId: sharedDevAccountProps.hostedZoneId,
-        //   certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
-        // },
+        // domain: undefined,
+        domain: {
+          domainName: `api.${sharedDevAccountProps.zoneName.slice(0,-1)}`,
+          zoneName: sharedDevAccountProps.zoneName,
+          hostedZoneId: sharedDevAccountProps.hostedZoneId,
+          certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
+        },
         auth: {
-          mockAuth: {
-            mockLambdaArn: `arn:aws:apigateway:${stageAccount.account.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${stageAccount.account.region}:${stageAccount.account.id}:function:updateApi/invocations`,
-          },
-          userPoolArn: undefined,
+          mockAuth: undefined,
+          // {
+          //   mockLambdaArn: `arn:aws:apigateway:${stageAccount.account.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${stageAccount.account.region}:${stageAccount.account.id}:function:updateApi/invocations`,
+          // },
+          // userPoolArn: undefined,
+          userPoolArn: `arn:aws:cognito-idp:${stageAccount.account.region}:${stageAccount.account.id}:userpool/${stageAccount.account.region}_xI5xo2eys`,
         },
       } : { // prod
         allowedOrigins: [

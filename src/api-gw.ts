@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
 import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod, Method } from '@aws-cdk/aws-apigateway';
+import { RestApi, CfnGatewayResponse, ResponseType, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod, Method } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
@@ -32,6 +32,33 @@ export class ApiGwStack extends CustomStack {
 
     const api = new RestApi(this, 'RestApi', {
       restApiName: 'Alf Instance Service',
+    });
+
+    new CfnGatewayResponse(this, 'get400Response', {
+      responseType: ResponseType.BAD_REQUEST_BODY.responseType,
+      // MISSING_AUTHENTICATION_TOKEN
+      restApiId: api.restApiId,
+      responseTemplates: {
+        'application/json': '{"message":$context.error.messageString,"validationErrors":"$context.error.validationErrorString"}'
+      },
+      responseParameters: {
+        'gatewayresponse.header.Access-Control-Allow-Methods': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Headers': "'*'",
+        'gatewayresponse.header.Access-Control-Exposed-Headers': "'ETag','x-amz-meta-custom-header','Authorization','Content-Type','Accept'",
+      }
+    });
+
+    new CfnGatewayResponse(this, 'get4xxResponse', {
+      responseType: ResponseType.DEFAULT_4XX.responseType,
+      // MISSING_AUTHENTICATION_TOKEN
+      restApiId: api.restApiId,
+      responseParameters: {
+        'gatewayresponse.header.Access-Control-Allow-Methods': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Headers': "'*'",
+        'gatewayresponse.header.Access-Control-Exposed-Headers': "'ETag','x-amz-meta-custom-header','Authorization','Content-Type','Accept'",
+      }
     });
 
     const alfInstanceId = {
@@ -370,7 +397,9 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
-    const getOneConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getOneConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getOneConfApi`));
+    const getOneConfApiFunction = Function.fromFunctionArn(this, 'getOneConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getOneConfApi`)
+
+    const getOneConfApiIntegration = new LambdaIntegration(getOneConfApiFunction);
     const instanceConfResource = instancesConfResource.addResource('{alfInstanceId}');
     const instanceConfResourceGet = instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
       requestValidator,
@@ -453,7 +482,7 @@ export class ApiGwStack extends CustomStack {
       });
       this.cfnOutputs['ApiDomainName'] = apiDomainName;
     }
-    
+
     const restApiEndPoint = new CfnOutput(this, 'RestApiEndPoint', {
       value: api.urlForPath(),
     });
