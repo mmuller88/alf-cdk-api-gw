@@ -100,6 +100,18 @@ const pipelineAppProps: PipelineAppProps = {
       while read line;
       do aws cloudformation delete-stack --stack-name $line --region ${stageAccount.account.region};
       done`,
+      'echo done! Delete all remaining Items in DynamoDB table!',
+      `aws dynamodb scan \
+      --attributes-to-get userId alfInstanceId \
+      --table-name alfInstances --query "Items[*]" \
+      # use jq to get each item on its own line
+      | jq --compact-output '.[]' \
+      # replace newlines with null terminated so 
+      # we can tell xargs to ignore special characters 
+      | tr '\n' '\0' \
+      | xargs -0 -t -I keyItem \
+        # use the whole item as the key to delete (dynamo keys *are* dynamo items)
+        aws dynamodb delete-item --table-name alfInstances --key=keyItem`,
     ] : []),
   ],
 };
