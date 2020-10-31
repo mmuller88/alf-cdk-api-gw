@@ -46,14 +46,15 @@ const pipelineAppProps: PipelineAppProps = {
           hostedZoneId: sharedDevAccountProps.hostedZoneId,
           certificateArn: `arn:aws:acm:us-east-1:${stageAccount.account.id}:certificate/f605dd8c-4ae3-4c1b-9471-4b152e0f8846`
         },
-        auth: {
-          mockAuth: undefined,
-          // {
-          //   mockLambdaArn: `arn:aws:apigateway:${stageAccount.account.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${stageAccount.account.region}:${stageAccount.account.id}:function:updateApi/invocations`,
-          // },
-          // userPoolArn: undefined,
-          userPoolArn: `arn:aws:cognito-idp:${stageAccount.account.region}:${stageAccount.account.id}:userpool/${stageAccount.account.region}_xI5xo2eys`,
-        },
+        auth: undefined,
+        // auth: {
+        //   mockAuth: undefined,
+        //   // {
+        //   //   mockLambdaArn: `arn:aws:apigateway:${stageAccount.account.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${stageAccount.account.region}:${stageAccount.account.id}:function:updateApi/invocations`,
+        //   // },
+        //   // userPoolArn: undefined,
+        //   userPoolArn: `arn:aws:cognito-idp:${stageAccount.account.region}:${stageAccount.account.id}:userpool/${stageAccount.account.region}_xI5xo2eys`,
+        // },
       } : { // prod
         allowedOrigins: [
           'https://api.alfpro.net',
