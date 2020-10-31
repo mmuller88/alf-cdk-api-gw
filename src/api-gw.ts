@@ -1,7 +1,7 @@
 // import { Role, ServicePrincipal, PolicyStatement } from '@aws-cdk/aws-iam';
-import { StackProps, Construct, CfnOutput } from '@aws-cdk/core';
+import { StackProps, Construct, CfnOutput, Tags } from '@aws-cdk/core';
 import { CustomStack } from 'alf-cdk-app-pipeline/custom-stack';
-import { RestApi, CfnGatewayResponse, ResponseType, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod, Method } from '@aws-cdk/aws-apigateway';
+import { RestApi, AuthorizationType, CfnGatewayResponse, ResponseType, Cors, JsonSchemaType, JsonSchema, Model, LambdaIntegration, RequestValidator, EndpointType, SecurityPolicy, CfnAuthorizer, CfnMethod, Method } from '@aws-cdk/aws-apigateway';
 import { Certificate } from '@aws-cdk/aws-certificatemanager';
 import { ARecord, HostedZone, RecordTarget, } from '@aws-cdk/aws-route53';
 import { ApiGatewayDomain } from '@aws-cdk/aws-route53-targets';
@@ -38,9 +38,9 @@ export class ApiGwStack extends CustomStack {
       responseType: ResponseType.BAD_REQUEST_BODY.responseType,
       // MISSING_AUTHENTICATION_TOKEN
       restApiId: api.restApiId,
-      responseTemplates: {
-        'application/json': '{"message":$context.error.messageString,"validationErrors":"$context.error.validationErrorString"}'
-      },
+      // responseTemplates: {
+      //   'application/json': '{"message":$context.error.messageString,"validationErrors":"$context.error.validationErrorString"}'
+      // },
       responseParameters: {
         'gatewayresponse.header.Access-Control-Allow-Methods': "'*'",
         'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
@@ -53,6 +53,21 @@ export class ApiGwStack extends CustomStack {
       responseType: ResponseType.DEFAULT_4XX.responseType,
       // MISSING_AUTHENTICATION_TOKEN
       restApiId: api.restApiId,
+      responseParameters: {
+        'gatewayresponse.header.Access-Control-Allow-Methods': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
+        'gatewayresponse.header.Access-Control-Allow-Headers': "'*'",
+        'gatewayresponse.header.Access-Control-Exposed-Headers': "'ETag','x-amz-meta-custom-header','Authorization','Content-Type','Accept'",
+      }
+    });
+
+    new CfnGatewayResponse(this, 'get500Response', {
+      responseType: ResponseType.DEFAULT_5XX.responseType,
+      // MISSING_AUTHENTICATION_TOKEN
+      restApiId: api.restApiId,
+      responseTemplates: {
+        'application/json': '{"message":$context.error.messageString,"validationErrors":"$context.error.validationErrorString"}'
+      },
       responseParameters: {
         'gatewayresponse.header.Access-Control-Allow-Methods': "'*'",
         'gatewayresponse.header.Access-Control-Allow-Origin': "'*'",
@@ -108,8 +123,7 @@ export class ApiGwStack extends CustomStack {
 
     const instanceListSchema: JsonSchema = {
       type: JsonSchemaType.ARRAY,
-      additionalProperties: false,
-      items : [instanceSchema],
+      items : instanceSchema,
     }
 
     const expectedStatus = {
@@ -204,8 +218,7 @@ export class ApiGwStack extends CustomStack {
       modelName: 'InstanceConfList',
       schema: {
         type: JsonSchemaType.ARRAY,
-        additionalProperties: false,
-        items : [instanceConfSchema],
+        items : instanceConfSchema,
       }
     })
 
@@ -338,6 +351,8 @@ export class ApiGwStack extends CustomStack {
 
     const getInstanceApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getInstancesApi', `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`));
     const instancesResourceGet = instancesResource.addMethod('GET', getInstanceApiIntegration, {
+      operationName: 'GetInstances',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
       requestValidator,
       requestParameters: {
         'method.request.querystring.userId': false,
@@ -350,15 +365,20 @@ export class ApiGwStack extends CustomStack {
 
     const instanceResource = instancesResource.addResource('{alfInstanceId}');
     const instanceResourceGet = instanceResource.addMethod('GET', getInstanceApiIntegration, {
+      operationName: 'GetInstance',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
+      requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
       },
-      methodResponses: [{
-        statusCode: '200',
-        responseModels: {
-          'application/json': instanceModel,
-        },
-      },
+      methodResponses: [
+      //   {
+      //   statusCode: '200',
+      //   responseModels: {
+      //     'application/json': instanceModel,
+      //   },
+      // },
+        response200WithResponseModel(instanceModel),
         validationErrorResponse,
         authErrorResponse,
         notFoundErrorResponse,
@@ -374,6 +394,8 @@ export class ApiGwStack extends CustomStack {
 
     const getAllConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'getAllConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:getAllConfApi`));
     const instancesConfResourceGet = instancesConfResource.addMethod('GET', getAllConfApiIntegration, {
+      operationName: 'GetInstancesConf',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
       requestValidator,
       requestParameters: {
         'method.request.querystring.userId': false,
@@ -384,6 +406,8 @@ export class ApiGwStack extends CustomStack {
       ]
     });
 
+    Tags.of(instancesConfResourceGet).add('tags','instances-conf');
+
     const response201WithResponse = {
       statusCode: '201',
       responseModels: {
@@ -393,6 +417,8 @@ export class ApiGwStack extends CustomStack {
 
     const createConfApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'createConfApi', `arn:aws:lambda:${this.region}:${this.account}:function:createConfApi`));
     const instancesConfResourcePost = instancesConfResource.addMethod('POST', createConfApiIntegration, {
+      operationName: 'CreateInstancesConf',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
       requestValidator,
       requestModels: {
         'application/json': newInstanceConfModel,
@@ -409,6 +435,8 @@ export class ApiGwStack extends CustomStack {
     const getOneConfApiIntegration = new LambdaIntegration(getOneConfApiFunction);
     const instanceConfResource = instancesConfResource.addResource('{alfInstanceId}');
     const instanceConfResourceGet = instanceConfResource.addMethod('GET', getOneConfApiIntegration, {
+      operationName: 'GetInstanceConf',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
       requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
@@ -424,6 +452,8 @@ export class ApiGwStack extends CustomStack {
 
     const updateApiIntegration = new LambdaIntegration(Function.fromFunctionArn(this, 'updateApi', `arn:aws:lambda:${this.region}:${this.account}:function:updateApi`));
     const instanceConfResourcePut = instanceConfResource.addMethod('PUT', updateApiIntegration, {
+      operationName: 'UpdateInstanceConf',
+      // authorizationScopes: ['aws.cognito.signin.user.admin'],
       requestValidator,
       requestParameters: {
         'method.request.path.alfInstanceId': true,
@@ -456,9 +486,8 @@ export class ApiGwStack extends CustomStack {
         authorizer = new CfnAuthorizer(this, 'cfnAuthCognito', {
           restApiId: api.restApiId,
           name: 'CognitoAuthorizer',
-          type: 'COGNITO_USER_POOLS',
+          type: AuthorizationType.COGNITO,
           identitySource: 'method.request.header.Authorization',
-          identityValidationExpression: 'Bearer (.*)',
           providerArns: [userPool.userPoolArn],
         });
       }
