@@ -1100,14 +1100,6 @@
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
 									"});",
-									"",
-									"var data = pm.response.json();",
-									"",
-									"pm.test(\"Has 2 item now\", function () {",
-									"    pm.expect(data.length).to.equal(2);",
-									"});",
-									"",
-									"pm.globals.set(\"url\", data[0].url);",
 									""
 								],
 								"type": "text/javascript"
@@ -1129,9 +1121,15 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito:username",
+								"value": "nicht",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=nicht",
+							"raw": "{{baseUrl}}/instances?userId=nicht",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1145,7 +1143,8 @@
 								},
 								{
 									"key": "MOCK_AUTH_cognito:username",
-									"value": "nicht"
+									"value": "nicht",
+									"disabled": true
 								}
 							]
 						}
@@ -1192,9 +1191,15 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito:username",
+								"value": "bald",
+								"equals": true
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=bald",
+							"raw": "{{baseUrl}}/instances?userId=nicht",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1208,7 +1213,8 @@
 								},
 								{
 									"key": "MOCK_AUTH_cognito:username",
-									"value": "bald"
+									"value": "bald",
+									"disabled": true
 								}
 							]
 						}
@@ -1255,9 +1261,20 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito:username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito:groups",
+								"value": "Admin",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=bald&MOCK_AUTH_cognito:groups=Admin",
+							"raw": "{{baseUrl}}/instances?userId=nicht",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1271,11 +1288,13 @@
 								},
 								{
 									"key": "MOCK_AUTH_cognito:username",
-									"value": "bald"
+									"value": "bald",
+									"disabled": true
 								},
 								{
 									"key": "MOCK_AUTH_cognito:groups",
-									"value": "Admin"
+									"value": "Admin",
+									"disabled": true
 								}
 							]
 						}
