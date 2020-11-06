@@ -93,26 +93,16 @@ const pipelineAppProps: PipelineAppProps = {
   },
   testCommands: (stageAccount) => [
     ...(stageAccount.stage==='dev'? [
-      `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json; EXIT_CODE=$? || true`,
-      'echo done! Delete all remaining Stacks!',
-      `aws cloudformation describe-stacks --query "Stacks[?Tags[?Key == 'alfInstanceId'][]].StackName" --region ${stageAccount.account.region} --output text |
+      `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json
+      echo done! Delete all remaining Stacks!
+      aws cloudformation describe-stacks --query "Stacks[?Tags[?Key == 'alfInstanceId'][]].StackName" --region ${stageAccount.account.region} --output text |
       awk '{print $1}' |
       while read line;
       do aws cloudformation delete-stack --stack-name $line --region ${stageAccount.account.region};
-      done`,
-      'echo done! Delete all remaining Items in DynamoDB table!',
-      // `aws dynamodb scan \
-      // --attributes-to-get userId alfInstanceId \
-      // --table-name alfInstances --query "Items[*]" \
-      // # use jq to get each item on its own line
-      // | jq --compact-output '.[]' \
-      // # replace newlines with null terminated so 
-      // # we can tell xargs to ignore special characters 
-      // | tr '\n' '\0' \
-      // | xargs -0 -t -I keyItem \
-      //   # use the whole item as the key to delete (dynamo keys *are* dynamo items)
-      //   aws dynamodb delete-item --table-name alfInstances --key=keyItem`,
-      'exit $EXIT_CODE'
+      done
+      echo done! Delete all remaining Items in DynamoDB table!
+      aws dynamodb scan --attributes-to-get userId alfInstanceId --table-name alfInstances --region ${stageAccount.account.region} --query "Items[*]" | jq --compact-output '.[]' | tr '\n' '\0' | 
+        xargs -0 -t -I keyItem aws dynamodb delete-item --table-name alfInstances --key=keyItem`,
     ] : []),
   ],
 };

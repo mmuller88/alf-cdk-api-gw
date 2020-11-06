@@ -977,6 +977,62 @@
 					"response": []
 				},
 				{
+					"name": "18.5 /instances length=2 as bald",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e4f84eb2-051a-4637-8530-56de64bb556a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Has 3 instances-conf now\", function () {",
+									"    pm.expect(data.length).to.equal(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8c748e40-0bac-461f-8f97-b98f1bc9edd5",
+								"exec": [
+									"setTimeout(function(){}, [240000]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instances?MOCK_AUTH_cognito:username=nicht",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instances"
+							],
+							"query": [
+								{
+									"key": "MOCK_AUTH_cognito:username",
+									"value": "nicht"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/instances without sleep",
 					"event": [
 						{
@@ -1034,15 +1090,15 @@
 					"response": []
 				},
 				{
-					"name": "20 /instances userId=nicht",
+					"name": "19 /instances userId=nicht 403",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "13601bfd-2108-4a5f-b1b8-6187a57c8e37",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
 									"});",
 									"",
 									"var data = pm.response.json();",
@@ -1075,7 +1131,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/instances?userId=nicht",
+							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=nicht",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1088,9 +1144,138 @@
 									"value": "nicht"
 								},
 								{
-									"key": "mockAuthUser",
-									"value": "bald",
-									"disabled": true
+									"key": "MOCK_AUTH_cognito:username",
+									"value": "nicht"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "20 /instances userId=nicht",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b072b9f5-ad53-4689-80ef-affc9fc850bc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Has 2 item now\", function () {",
+									"    pm.expect(data.length).to.equal(2);",
+									"});",
+									"",
+									"pm.globals.set(\"url\", data[0].url);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f0c067a8-8349-4a6b-8196-55cd26b6c43d",
+								"exec": [
+									"setTimeout(function(){}, [5000]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=bald",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instances"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "nicht"
+								},
+								{
+									"key": "MOCK_AUTH_cognito:username",
+									"value": "bald"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "20.5 /instances userId=nicht as Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f18bbcfa-cfe0-47ff-8b37-d20036abf519",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Has 2 item now\", function () {",
+									"    pm.expect(data.length).to.equal(2);",
+									"});",
+									"",
+									"pm.globals.set(\"url\", data[0].url);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "163b6427-7f04-4daf-8332-ae12fbbadf69",
+								"exec": [
+									"setTimeout(function(){}, [5000]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/instances?userId=nicht&MOCK_AUTH_cognito:username=bald&MOCK_AUTH_cognito:groups=Admin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instances"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "nicht"
+								},
+								{
+									"key": "MOCK_AUTH_cognito:username",
+									"value": "bald"
+								},
+								{
+									"key": "MOCK_AUTH_cognito:groups",
+									"value": "Admin"
 								}
 							]
 						}
