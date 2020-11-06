@@ -4,6 +4,10 @@ const dependencies = {
   'alf-cdk-app-pipeline': 'github:mmuller88/alf-cdk-app-pipeline#v0.0.8',
 }
 
+const devDeps = {
+  "prettier": "^2.1.2",
+}
+
 const name = 'alf-cdk-api-gw';
 
 const project = new TypeScriptProject({
@@ -12,6 +16,7 @@ const project = new TypeScriptProject({
   authorName: "Martin Müller",
   repository: `https://github.com/mmuller88/${name}`,
   dependencies,
+  devDependencies: devDeps,
   peerDependencies: dependencies,
   keywords: [
     "cdk",
