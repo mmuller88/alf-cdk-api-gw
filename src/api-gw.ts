@@ -60,7 +60,7 @@ export class ApiGwStack extends CustomStack {
             resources: [
               `arn:aws:lambda:${this.region}:${this.account}:function:*/invocations`,
             ],
-            actions: ["lambda:invoke"],
+            actions: ["lambda:Invoke"],
           }),
           // new iam.PolicyStatement({
           //   principals: [new iam.ServicePrincipal("*")],
