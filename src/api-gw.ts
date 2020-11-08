@@ -55,6 +55,13 @@ export class ApiGwStack extends CustomStack {
             resources: ["*"],
             actions: ["execute-api:Invoke"],
           }),
+          new iam.PolicyStatement({
+            principals: [new iam.ServicePrincipal("apigateway.amazonaws.com")],
+            resources: [
+              `arn:aws:lambda:${this.region}:${this.account}:function:*/invocations`,
+            ],
+            actions: ["lambda:invoke"],
+          }),
           // new iam.PolicyStatement({
           //   principals: [new iam.ServicePrincipal("*")],
           //   resources: [
