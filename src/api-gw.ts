@@ -23,6 +23,7 @@ import { ARecord, HostedZone, RecordTarget } from "@aws-cdk/aws-route53";
 import { ApiGatewayDomain } from "@aws-cdk/aws-route53-targets";
 import { Function } from "@aws-cdk/aws-lambda";
 import { UserPool } from "@aws-cdk/aws-cognito";
+import * as iam from "@aws-cdk/aws-iam";
 
 export interface ApiGwStackProps extends StackProps {
   stage: string;
@@ -47,6 +48,17 @@ export class ApiGwStack extends CustomStack {
 
     const api = new RestApi(this, "RestApi", {
       restApiName: "Alf Instance Service",
+      policy: new iam.PolicyDocument({
+        statements: [
+          new iam.PolicyStatement({
+            principals: [new iam.ServicePrincipal("apigateway.amazonaws.com")],
+            resources: [
+              `arn:aws:lambda:${this.region}:${this.account}:function:*/invocations`,
+            ],
+            actions: ["lambda:invoke"],
+          }),
+        ],
+      }),
     });
 
     new CfnGatewayResponse(this, "get400Response", {
@@ -84,7 +96,7 @@ export class ApiGwStack extends CustomStack {
       restApiId: api.restApiId,
       responseTemplates: {
         "application/json":
-          '{"message":$context.error.messageString,"validationErrors":"$context.error.validationErrorString"}',
+          '{"message":$context.error.messageString,"errorObject":"$context.error"}',
       },
       responseParameters: {
         "gatewayresponse.header.Access-Control-Allow-Methods": "'*'",
