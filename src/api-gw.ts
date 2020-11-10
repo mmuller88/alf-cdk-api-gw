@@ -22,6 +22,7 @@ import { Certificate } from "@aws-cdk/aws-certificatemanager";
 import { ARecord, HostedZone, RecordTarget } from "@aws-cdk/aws-route53";
 import { ApiGatewayDomain } from "@aws-cdk/aws-route53-targets";
 import { Function } from "@aws-cdk/aws-lambda";
+// import * as lambda from "@aws-cdk/aws-lambda";
 import { UserPool } from "@aws-cdk/aws-cognito";
 import * as iam from "@aws-cdk/aws-iam";
 
@@ -409,7 +410,14 @@ export class ApiGwStack extends CustomStack {
         "getInstancesApi",
         `arn:aws:lambda:${this.region}:${this.account}:function:getInstancesApi`
       )
+      // new Function(this, "getInstancesApi2", {
+      //   functionName: "getInstancesApi2",
+      //   code: lambda.Code.fromAsset("lib/src"),
+      //   runtime: lambda.Runtime.NODEJS_10_X,
+      //   handler: "index.handler",
+      // })
     );
+
     const instancesResourceGet = instancesResource.addMethod(
       "GET",
       getInstanceApiIntegration,

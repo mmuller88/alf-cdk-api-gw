@@ -371,7 +371,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\",\n\t\"muhkuh\": \"blub\"\n}",
@@ -878,7 +888,17 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"userId\": \"nicht\",\n\t\"alfType\": {\n\t\t\"ec2InstanceType\": \"t2.large\",\n\t\t\"gitRepo\": \"alf-ec2-1\"\n\t}\n}",
@@ -928,7 +948,17 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"userId\": \"nicht\",\n\t\"alfType\": {\n\t\t\"ec2InstanceType\": \"t2.large\",\n\t\t\"gitRepo\": \"alf-ec2-1\"\n\t}\n}",
@@ -997,6 +1027,16 @@
 						"method": "GET",
 						"header": [
 							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}
+							{
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
@@ -1063,7 +1103,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances?MOCK_AUTH_cognito&username=nicht",
 							"host": [
@@ -1119,7 +1169,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances",
 							"host": [
@@ -1372,7 +1432,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}",
 							"host": [
@@ -1414,7 +1484,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -1460,7 +1540,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId=not-exist-12",
 							"host": [
@@ -1506,7 +1596,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"alfType\": 2,\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1557,7 +1657,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1608,7 +1718,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1659,7 +1779,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"invalid/dUserName_ä#12\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1710,7 +1840,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"invalid/dUserName_ä#12\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1777,7 +1917,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances",
 							"host": [
@@ -1837,7 +1987,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf?userId=nicht",
 							"host": [
@@ -1899,7 +2059,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -1945,7 +2115,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"stopped\"\n}",
@@ -2013,7 +2193,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -2075,7 +2265,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances/{{id}}",
 							"host": [
@@ -2127,7 +2327,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances/not-exist-id-2223",
 							"host": [
@@ -2169,7 +2379,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"running\"\n}",
@@ -2237,7 +2457,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -2299,7 +2529,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances/{{id}}",
 							"host": [
@@ -2341,7 +2581,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -2411,7 +2661,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf",
 							"host": [
@@ -2452,7 +2712,17 @@
 							"type": "noauth"
 						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -2519,7 +2789,17 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "MOCK_AUTH_cognito&username",
+								"value": "bald",
+								"type": "text"
+							},
+							{
+								"key": "MOCK_AUTH_cognito&groups",
+								"value": "Admin",
+								"type": "text"
+							}],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf",
 							"host": [
