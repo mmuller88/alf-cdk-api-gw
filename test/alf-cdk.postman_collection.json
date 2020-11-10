@@ -1035,7 +1035,7 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}
+							},
 							{
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
