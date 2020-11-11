@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5fea7acf-0688-4778-9223-6d9c2539e7e6",
+		"_postman_id": "81e7b585-35b8-429c-9055-1835f3bdbed7",
 		"name": "alf-cdk",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0349af37-9fe5-4512-af27-8a2aeaf127d3",
+								"id": "df9645a0-af34-427c-9882-f98187781c4b",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -71,7 +71,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2cca1ac8-deb7-4650-b63b-220025f48357",
+								"id": "6dabe359-11d5-46f2-be1b-29d28ae9038c",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -128,7 +128,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3c689639-8354-4f7e-9e8c-21d755ea9aa9",
+								"id": "586bfe81-a3b1-4651-ba9d-95fd312ea850",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -185,7 +185,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "57345514-5fd1-4d5a-bcc3-9f0500700c85",
+								"id": "2e923820-6e3d-4da3-99d3-6e1875ddba25",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -242,7 +242,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "754d367d-89c7-43a7-a0d8-48a83dda08b4",
+								"id": "02b251a0-47fb-443c-9413-d938935464b8",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -299,7 +299,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8e0fa915-cdbb-4e41-a3ae-74fd9fb2ab3b",
+								"id": "8c0ad494-8563-4511-8116-a5c16a916dd9",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -356,7 +356,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "86b2d540-a8b6-4086-9b28-70e8c78e4a9b",
+								"id": "d0d67d7f-14d3-4047-ac5a-7af71f97e226",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -381,7 +381,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\",\n\t\"muhkuh\": \"blub\"\n}",
@@ -417,7 +418,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8761071c-85e3-4bfb-80d9-9adbcf24711d",
+								"id": "7623dca6-9e6f-4e51-ad8a-901425b24d38",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -474,7 +475,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "aa70de92-e0a7-4d0f-a2e0-6636980fa3cf",
+								"id": "7ff676a9-6629-476b-838c-dd3bb0f29d38",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -531,7 +532,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c886316d-2fe2-45e2-9cf3-7a877dd1ea4a",
+								"id": "20f6bddf-67cb-4261-bcfb-3be3a4a66681",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -588,7 +589,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "79c9db76-5df6-4a15-bcf2-c06a69f29433",
+								"id": "3fb868d6-c2da-4667-b33e-69928f85adca",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -606,7 +607,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "4de8efff-153d-4c9f-9bb8-4979f4b55d92",
+								"id": "19700d2b-a18d-4798-b3df-138b46949a19",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -649,7 +650,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3f6b13cd-baae-46ae-8ea0-9fb35c7a40ad",
+								"id": "14a5326a-c3b9-4b63-9e48-b3c5d13edff3",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -676,7 +677,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "b74c3899-d430-4e62-86a4-444dc01e7361",
+								"id": "e705d0c7-4c73-4835-b976-f1c8f5475ac5",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -725,7 +726,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1769f219-7cdb-427f-b46b-dc827ade24b9",
+								"id": "9904bc8d-2f14-49ce-9078-ac14e2d0426a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -746,7 +747,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "31fabed3-80b0-448c-b65a-015a4be63a67",
+								"id": "1cee5637-bf63-4bad-bb44-1d60c71aa5c2",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -800,7 +801,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "12210b59-48cf-4530-850b-8f82335027af",
+								"id": "662a9afc-cff1-44f6-8c3d-d04d7ff2aa4a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -819,7 +820,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ed2eeec7-895a-4d00-80d7-0abc038aa3e4",
+								"id": "53d750fd-c6d8-43f6-874f-f7bb44f6dc08",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -873,7 +874,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ff4e28ab-2a5d-4c0d-b16e-5b56c0bf3798",
+								"id": "ab8c2e69-9ab2-40f5-9b73-40fc43124cd1",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -898,7 +899,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"userId\": \"nicht\",\n\t\"alfType\": {\n\t\t\"ec2InstanceType\": \"t2.large\",\n\t\t\"gitRepo\": \"alf-ec2-1\"\n\t}\n}",
@@ -933,7 +935,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8885aa91-6a4a-4dcc-8f75-5d973a0e5b38",
+								"id": "75d95357-4ce6-45b3-9714-e01d7571757c",
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
@@ -958,7 +960,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"userId\": \"nicht\",\n\t\"alfType\": {\n\t\t\"ec2InstanceType\": \"t2.large\",\n\t\t\"gitRepo\": \"alf-ec2-1\"\n\t}\n}",
@@ -994,7 +997,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1de99de2-4409-40ec-8b5a-b8211986b35e",
+								"id": "fbdaf10f-f248-43e6-af7d-a0efa07ee862",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1012,7 +1015,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c925c203-f6ca-46fa-bd32-1d92b672ead1",
+								"id": "00792624-2ba2-4e04-86cc-6e94e55a4cb6",
 								"exec": [
 									"setTimeout(function(){}, [240000]);"
 								],
@@ -1034,16 +1037,6 @@
 							{
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
-								"type": "text"
-							},
-							{
-								"key": "MOCK_AUTH_cognito&groups",
-								"value": "Admin",
-								"type": "text"
-							},
-							{
-								"key": "MOCK_AUTH_cognito&username",
-								"value": "bald",
 								"type": "text"
 							}
 						],
@@ -1072,7 +1065,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e4f84eb2-051a-4637-8530-56de64bb556a",
+								"id": "f289821a-9c0f-498b-b91b-9dcf560b7428",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1090,7 +1083,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8c748e40-0bac-461f-8f97-b98f1bc9edd5",
+								"id": "7582a9fd-1776-4d04-b2c1-d23ff999133d",
 								"exec": [
 									"setTimeout(function(){}, [240000]);"
 								],
@@ -1113,9 +1106,10 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
-							"raw": "{{baseUrl}}/instances?MOCK_AUTH_cognito&username=nicht",
+							"raw": "{{baseUrl}}/instances?MOCK_AUTH_cognito%26username=nicht",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1138,7 +1132,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cdb71954-4324-4506-93c8-0643198e2651",
+								"id": "04b568a7-4f0f-47d5-9106-6ecbd76b8416",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1156,7 +1150,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "210d3ae7-b897-4bf8-8e22-0a9b1dbd0bb5",
+								"id": "e87d932b-91fe-47ec-ac9b-c5fc4ea6d903",
 								"exec": [
 									""
 								],
@@ -1179,7 +1173,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances",
 							"host": [
@@ -1205,7 +1200,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "13601bfd-2108-4a5f-b1b8-6187a57c8e37",
+								"id": "34695974-f033-4047-a5e0-56232382caf6",
 								"exec": [
 									"pm.test(\"Status code is 403\", function () {",
 									"    pm.response.to.have.status(403);",
@@ -1218,7 +1213,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "60a4017e-bca8-4058-8b18-eda50dd9a839",
+								"id": "5280a964-eb43-4ecc-866c-f90fbde06343",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -1234,7 +1229,7 @@
 						"header": [
 							{
 								"key": "MOCK_AUTH_cognito&username",
-								"value": "nicht",
+								"value": "bald",
 								"type": "text"
 							}
 						],
@@ -1267,7 +1262,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b072b9f5-ad53-4689-80ef-affc9fc850bc",
+								"id": "83baca53-3549-4a04-80df-f4dd003806d5",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1288,7 +1283,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f0c067a8-8349-4a6b-8196-55cd26b6c43d",
+								"id": "a9818ffd-dc41-4f5f-bb24-252c700c9790",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -1337,7 +1332,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f18bbcfa-cfe0-47ff-8b37-d20036abf519",
+								"id": "7566cfd7-e32d-4eae-a5b0-242b995abe48",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1358,7 +1353,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "163b6427-7f04-4daf-8332-ae12fbbadf69",
+								"id": "c95efe7e-fabd-4819-ba04-9a4105769b55",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -1417,7 +1412,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5d58f558-cb5c-4eea-b0a5-5d98bee8b83b",
+								"id": "cb5fa5a9-4fb8-4224-8476-dd1f7d35e03f",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -1442,7 +1437,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}",
 							"host": [
@@ -1469,7 +1465,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "922a4180-020b-4196-a0ea-656fd68bec69",
+								"id": "2763e12c-7bba-48a5-89a9-37c14f15153e",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1494,7 +1490,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -1525,7 +1522,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "11d663e4-21ca-4dea-b6ad-507ba5328a81",
+								"id": "e93521fb-0d09-4d50-872f-65c4cae0f2b3",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
@@ -1550,7 +1547,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId=not-exist-12",
 							"host": [
@@ -1581,7 +1579,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5793d4c3-22b0-4507-a62e-ce35b47525c5",
+								"id": "bcc98b8b-a0bb-4638-957b-05ab3c699cb2",
 								"exec": [
 									"pm.test(\"Status code is 400\", function () {",
 									"    pm.response.to.have.status(400);",
@@ -1606,7 +1604,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"alfType\": 2,\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1642,7 +1641,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c75ed725-4278-4a42-b582-2ce87ab0f47e",
+								"id": "f6a16645-1fea-45f6-8a71-5510453f3032",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1667,7 +1666,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1703,7 +1703,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4bed0ce4-115c-4072-88ba-cf464cf9feb8",
+								"id": "8ce6f9cf-0321-4f81-8434-d379b4ad1b47",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1728,7 +1728,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1764,7 +1765,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4319ddc1-b244-4205-b419-3a187e27e699",
+								"id": "cd578e8b-406b-42cf-8b49-67e736e49e9d",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
@@ -1789,7 +1790,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"invalid/dUserName_ä#12\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1825,7 +1827,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "92bf68df-a435-479f-b8d9-52d7e525594c",
+								"id": "46d92e0b-95a8-4c7d-a0c6-dfec739097d6",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
@@ -1850,7 +1852,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"invalid/dUserName_ä#12\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -1886,7 +1889,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c140f14c-33aa-493f-9d18-2604e1f1a861",
+								"id": "8bf9dc38-e6e2-468c-9326-dc579d8c57b3",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1904,7 +1907,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "95e31410-2ce8-4ecc-a6af-23c66a378420",
+								"id": "2e1b7bb6-b6ec-4b5b-a625-6b114088b3d2",
 								"exec": [
 									"setTimeout(function(){}, [55000]);"
 								],
@@ -1927,7 +1930,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances",
 							"host": [
@@ -1953,7 +1957,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "21d2719d-0f1d-478f-bc56-727b8ffb4673",
+								"id": "bf50b902-b15d-40d1-acb0-9c4a772ff771",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1974,7 +1978,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1422abf0-6346-4275-b286-5964d7ecaf6a",
+								"id": "961fe90e-62d7-4fd2-9f6e-4b8142a1896b",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -1997,7 +2001,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf?userId=nicht",
 							"host": [
@@ -2027,7 +2032,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7a565b4c-343c-480e-9125-8fea9390ea3d",
+								"id": "e1404cad-5460-4854-9b57-f97d5049e62c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2046,7 +2051,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "eb9bd7c9-bb84-45aa-ab6a-8f661aad3b4b",
+								"id": "d2e98a22-0308-4bfe-b02a-6ec50c575cbc",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2069,7 +2074,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -2100,7 +2106,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "649cbcee-a7fb-405d-9777-c32e46163f20",
+								"id": "191af7c2-e626-419b-8055-51eb34ad6e3c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2125,7 +2131,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"stopped\"\n}",
@@ -2161,7 +2168,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c5524b61-71c6-418b-bd43-adb7770366fe",
+								"id": "691a8da4-890f-4047-a4ad-7c922ee647c8",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2180,7 +2187,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "517cfa50-69e0-4d86-a465-24f35fa75653",
+								"id": "9b85fd3e-bcf5-469f-b8d6-04746dede2b7",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2203,7 +2210,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -2234,7 +2242,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f630480e-1a27-4e85-a941-cc6d07d0a5db",
+								"id": "d85c1690-b7f2-4cba-99a0-ca4f1c051b36",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2252,7 +2260,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c59f9e23-9370-4fa9-bd7d-8ebdc027caca",
+								"id": "3679f7f9-7294-49e7-a113-3fea8401a77d",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2275,7 +2283,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances/{{id}}",
 							"host": [
@@ -2302,7 +2311,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "def3bad7-5b18-4c25-be50-fe99938041f2",
+								"id": "ad476b56-4460-4b7c-ac49-8efb30d32661",
 								"exec": [
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
@@ -2314,7 +2323,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1abc3140-0aa7-4c7e-8145-1ac55801b4e9",
+								"id": "036d4838-2785-4455-8f76-97adc7792e1d",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2337,7 +2346,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances/not-exist-id-2223",
 							"host": [
@@ -2364,7 +2374,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3ca8fb19-3485-494e-8ba5-d90c182e31b6",
+								"id": "b0b4cac0-13cb-41d3-9ae4-0b9540dcfe1a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2389,7 +2399,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"running\"\n}",
@@ -2425,7 +2436,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9524bbe3-1818-4a13-b262-1ab0e01f3004",
+								"id": "b13d0fc7-43d6-437b-944b-8890da19fca8",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2444,7 +2455,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "23384b16-1597-46a8-86b3-c9f5edce1901",
+								"id": "149cff3e-6c53-47f1-be36-24e7775d3a80",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2467,7 +2478,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf/{{id}}?userId={{userId}}",
 							"host": [
@@ -2498,7 +2510,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7d69af0e-2f02-4148-864e-6d190fecca9d",
+								"id": "cef3cf35-d0f7-446e-a106-580e48eceede",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2516,7 +2528,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "9d1c7396-0faa-44c2-944a-61623a331b47",
+								"id": "2611c7b8-92dc-44a6-9b88-45dc4a3bc943",
 								"exec": [
 									"setTimeout(function(){}, [10000]);"
 								],
@@ -2539,7 +2551,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances/{{id}}",
 							"host": [
@@ -2566,7 +2579,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "40a15193-2511-4405-b281-cdcc53fe44ba",
+								"id": "bbb121df-fd8a-469c-945e-7e6f73a040bf",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2591,7 +2604,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -2627,7 +2641,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5e9a953c-df0c-4024-9ea4-9503e7eecb3b",
+								"id": "c89838a9-74a2-4199-9737-47f017909e8c",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2648,7 +2662,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f10fa888-0f2e-429c-b924-66f37483bd53",
+								"id": "5a202a9c-6e42-42b1-ab43-d796efdafd67",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -2671,7 +2685,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf",
 							"host": [
@@ -2697,7 +2712,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f22f1881-783a-4be7-b7f5-d90171f29a2d",
+								"id": "a2621cde-1cee-4702-8a4a-821f6c49fc7f",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2722,7 +2737,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"userId\": \"{{userId}}\",\n    \"expectedStatus\": \"terminated\"\n}",
@@ -2758,7 +2774,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4c8575e8-40f9-4a50-8697-d80345871ee0",
+								"id": "2d7a0c3e-99ac-421f-a99e-e954d469647b",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2776,7 +2792,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "493fa9ba-5fd1-426f-8c05-ad70bf3f50bf",
+								"id": "5f909cf5-fdf8-4fed-bdf5-79056cc01047",
 								"exec": [
 									"setTimeout(function(){}, [5000]);"
 								],
@@ -2799,7 +2815,8 @@
 								"key": "MOCK_AUTH_cognito&groups",
 								"value": "Admin",
 								"type": "text"
-							}],
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/instances-conf",
 							"host": [
@@ -2827,7 +2844,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ee530b06-3efb-4c90-9391-5672c572df0f",
+				"id": "da63f964-f18b-49c5-8ac4-00a3fba4a7e2",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -2837,7 +2854,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a3a1519a-775f-4b56-bcb4-a4c2e4731e1b",
+				"id": "875d599e-b4fa-4d9b-b1bf-86a6e58547da",
 				"type": "text/javascript",
 				"exec": [
 					""

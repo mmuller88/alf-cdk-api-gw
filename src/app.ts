@@ -102,7 +102,7 @@ const pipelineAppProps: PipelineAppProps = {
   testCommands: (stageAccount) => [
     ...(stageAccount.stage === "dev"
       ? [
-          `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json ||
+          `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json; RESULT=$? ||
       echo done! Delete all remaining Stacks! &&
       aws cloudformation describe-stacks --query "Stacks[?Tags[?Key == 'alfInstanceId'][]].StackName" --region ${stageAccount.account.region} --output text |
       awk '{print $1}' |
@@ -111,7 +111,8 @@ const pipelineAppProps: PipelineAppProps = {
       done &&
       echo done! Delete all remaining Items in DynamoDB table! &&
       aws dynamodb scan --attributes-to-get userId alfInstanceId --table-name alfInstances --region ${stageAccount.account.region} --query "Items[*]" | jq --compact-output '.[]' | tr '\n' '\0' | 
-        xargs -0 -t -I keyItem aws dynamodb delete-item --table-name alfInstances --key=keyItem`,
+        xargs -0 -t -I keyItem aws dynamodb delete-item --table-name alfInstances --key=keyItem
+      exit $RESULT`,
         ]
       : []),
   ],
