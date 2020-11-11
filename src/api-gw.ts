@@ -544,7 +544,7 @@ export class ApiGwStack extends CustomStack {
       {
         operationName: "GetInstanceConf",
         // authorizationScopes: ['aws.cognito.signin.user.admin'],
-        requestValidator,
+        requestValidator: requestValidator,
         requestParameters: {
           "method.request.path.alfInstanceId": true,
           "method.request.querystring.userId": true,
