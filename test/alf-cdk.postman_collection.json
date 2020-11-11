@@ -1344,7 +1344,7 @@
 									"    pm.expect(data.length).to.equal(2);",
 									"});",
 									"",
-									"pm.globals.set(\"url\", data[0].url);",
+									"pm.globals.set(\"id\", data[0].id);",
 									""
 								],
 								"type": "text/javascript"
