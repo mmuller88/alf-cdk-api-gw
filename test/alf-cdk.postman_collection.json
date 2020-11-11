@@ -1299,7 +1299,7 @@
 						"header": [
 							{
 								"key": "MOCK_AUTH_cognito&username",
-								"value": "bald",
+								"value": "nicht",
 								"equals": true
 							}
 						],
