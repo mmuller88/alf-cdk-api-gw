@@ -50,10 +50,10 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.8"
+    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.10"
   },
   "dependencies": {
-    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.8"
+    "alf-cdk-app-pipeline": "github:mmuller88/alf-cdk-app-pipeline#v0.0.10"
   },
   "bundledDependencies": [],
   "keywords": [
