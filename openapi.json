@@ -8,10 +8,10 @@
     "url" : "https://api.dev.alfpro.net"
   } ],
   "paths" : {
-    "/instances/{alfInstanceId}" : {
+    "/instances/{instanceId}" : {
       "get" : {
         "parameters" : [ {
-          "name" : "alfInstanceId",
+          "name" : "instanceId",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -361,10 +361,10 @@
         }
       }
     },
-    "/instances-conf/{alfInstanceId}" : {
+    "/instances-conf/{instanceId}" : {
       "get" : {
         "parameters" : [ {
-          "name" : "alfInstanceId",
+          "name" : "instanceId",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -432,7 +432,7 @@
       },
       "put" : {
         "parameters" : [ {
-          "name" : "alfInstanceId",
+          "name" : "instanceId",
           "in" : "path",
           "required" : true,
           "schema" : {
@@ -629,10 +629,10 @@
           },
           "additionalProperties" : false
         }, {
-          "required" : [ "alfInstanceId", "expectedStatus" ],
+          "required" : [ "instanceId", "expectedStatus" ],
           "type" : "object",
           "properties" : {
-            "alfInstanceId" : {
+            "instanceId" : {
               "maxLength" : 5,
               "minLength" : 5,
               "pattern" : "[a-z0-9]{5,5}",
@@ -695,10 +695,10 @@
               },
               "additionalProperties" : false
             }, {
-              "required" : [ "alfInstanceId", "expectedStatus" ],
+              "required" : [ "instanceId", "expectedStatus" ],
               "type" : "object",
               "properties" : {
-                "alfInstanceId" : {
+                "instanceId" : {
                   "maxLength" : 5,
                   "minLength" : 5,
                   "pattern" : "[a-z0-9]{5,5}",
@@ -720,7 +720,7 @@
         }
       },
       "Instance" : {
-        "required" : [ "adminCredentials", "alfInstanceId", "status" ],
+        "required" : [ "adminCredentials", "instanceId", "status" ],
         "type" : "object",
         "properties" : {
           "adminCredentials" : {
@@ -736,7 +736,7 @@
             },
             "additionalProperties" : false
           },
-          "alfInstanceId" : {
+          "instanceId" : {
             "maxLength" : 5,
             "minLength" : 5,
             "pattern" : "[a-z0-9]{5,5}",

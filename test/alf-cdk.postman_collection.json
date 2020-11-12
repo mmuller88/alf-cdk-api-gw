@@ -738,7 +738,7 @@
 									"    pm.expect(data.length).to.equal(2);",
 									"});",
 									"",
-									"pm.globals.set(\"id\", data[0].alfInstanceId);",
+									"pm.globals.set(\"id\", data[0].instanceId);",
 									"pm.globals.set(\"userId\", data[0].userId);"
 								],
 								"type": "text/javascript"
@@ -1969,7 +1969,7 @@
 									"    pm.expect(data.length).to.equal(1);",
 									"});",
 									"",
-									"pm.globals.set(\"id\", data[0].alfInstanceId);",
+									"pm.globals.set(\"id\", data[0].instanceId);",
 									"pm.globals.set(\"userId\", data[0].userId);"
 								],
 								"type": "text/javascript"
@@ -2653,7 +2653,7 @@
 									"    pm.expect(data.length).to.equal(1);",
 									"});",
 									"",
-									"pm.globals.set(\"id\", data[0].alfInstanceId);",
+									"pm.globals.set(\"id\", data[0].instanceId);",
 									"pm.globals.set(\"userId\", data[0].userId);"
 								],
 								"type": "text/javascript"

@@ -120,7 +120,7 @@ export class ApiGwStack extends CustomStack {
       },
     });
 
-    const alfInstanceId = {
+    const instanceId = {
       maxLength: 5,
       minLength: 5,
       pattern: "[a-z0-9]{5,5}",
@@ -131,10 +131,10 @@ export class ApiGwStack extends CustomStack {
     };
 
     const instanceSchema: JsonSchema = {
-      required: ["adminCredentials", "alfInstanceId", "status"],
+      required: ["adminCredentials", "instanceId", "status"],
       type: JsonSchemaType.OBJECT,
       properties: {
-        alfInstanceId,
+        instanceId,
         status: {
           type: JsonSchemaType.STRING,
           description:
@@ -239,9 +239,9 @@ export class ApiGwStack extends CustomStack {
           additionalProperties: false,
         },
         {
-          required: ["alfInstanceId", "expectedStatus"],
+          required: ["instanceId", "expectedStatus"],
           properties: {
-            alfInstanceId,
+            instanceId,
             expectedStatus,
           },
         },
@@ -435,7 +435,7 @@ export class ApiGwStack extends CustomStack {
       }
     );
 
-    const instanceResource = instancesResource.addResource("{alfInstanceId}");
+    const instanceResource = instancesResource.addResource("{instanceId}");
     const instanceResourceGet = instanceResource.addMethod(
       "GET",
       getInstanceApiIntegration,
@@ -444,7 +444,7 @@ export class ApiGwStack extends CustomStack {
         // authorizationScopes: ['aws.cognito.signin.user.admin'],
         requestValidator,
         requestParameters: {
-          "method.request.path.alfInstanceId": true,
+          "method.request.path.instanceId": true,
         },
         methodResponses: [
           //   {
@@ -536,7 +536,7 @@ export class ApiGwStack extends CustomStack {
       getOneConfApiFunction
     );
     const instanceConfResource = instancesConfResource.addResource(
-      "{alfInstanceId}"
+      "{instanceId}"
     );
     const instanceConfResourceGet = instanceConfResource.addMethod(
       "GET",
@@ -546,7 +546,7 @@ export class ApiGwStack extends CustomStack {
         // authorizationScopes: ['aws.cognito.signin.user.admin'],
         requestValidator: requestValidator,
         requestParameters: {
-          "method.request.path.alfInstanceId": true,
+          "method.request.path.instanceId": true,
           "method.request.querystring.userId": true,
         },
         methodResponses: [
@@ -573,7 +573,7 @@ export class ApiGwStack extends CustomStack {
         // authorizationScopes: ['aws.cognito.signin.user.admin'],
         requestValidator,
         requestParameters: {
-          "method.request.path.alfInstanceId": true,
+          "method.request.path.instanceId": true,
         },
         requestModels: {
           "application/json": putInstanceConfModel,

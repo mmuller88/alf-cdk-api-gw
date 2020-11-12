@@ -10,11 +10,11 @@
     }
   ],
   "paths": {
-    "/instances/{alfInstanceId}": {
+    "/instances/{instanceId}": {
       "get": {
         "parameters": [
           {
-            "name": "alfInstanceId",
+            "name": "instanceId",
             "in": "path",
             "required": true,
             "schema": {
@@ -380,11 +380,11 @@
         }
       }
     },
-    "/instances-conf/{alfInstanceId}": {
+    "/instances-conf/{instanceId}": {
       "get": {
         "parameters": [
           {
-            "name": "alfInstanceId",
+            "name": "instanceId",
             "in": "path",
             "required": true,
             "schema": {
@@ -458,7 +458,7 @@
       "put": {
         "parameters": [
           {
-            "name": "alfInstanceId",
+            "name": "instanceId",
             "in": "path",
             "required": true,
             "schema": {
@@ -678,12 +678,12 @@
           },
           {
             "required": [
-              "alfInstanceId",
+              "instanceId",
               "expectedStatus"
             ],
             "type": "object",
             "properties": {
-              "alfInstanceId": {
+              "instanceId": {
                 "maxLength": 5,
                 "minLength": 5,
                 "pattern": "[a-z0-9]{5,5}",
@@ -767,12 +767,12 @@
               },
               {
                 "required": [
-                  "alfInstanceId",
+                  "instanceId",
                   "expectedStatus"
                 ],
                 "type": "object",
                 "properties": {
-                  "alfInstanceId": {
+                  "instanceId": {
                     "maxLength": 5,
                     "minLength": 5,
                     "pattern": "[a-z0-9]{5,5}",
@@ -801,7 +801,7 @@
       "Instance": {
         "required": [
           "adminCredentials",
-          "alfInstanceId",
+          "instanceId",
           "status"
         ],
         "type": "object",
@@ -822,7 +822,7 @@
             },
             "additionalProperties": false
           },
-          "alfInstanceId": {
+          "instanceId": {
             "maxLength": 5,
             "minLength": 5,
             "pattern": "[a-z0-9]{5,5}",
