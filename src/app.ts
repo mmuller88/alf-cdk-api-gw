@@ -107,6 +107,7 @@ const pipelineAppProps: PipelineAppProps = {
           `aws cloudformation describe-stacks --query "Stacks[?Tags[?Key == 'instanceId'][]].StackName" --region ${stageAccount.account.region} --output text |
       awk '{print $1}' |
       while read line;
+      echo "delete $line"
       do aws cloudformation delete-stack --stack-name $line --region ${stageAccount.account.region};
       done`,
           // echo done! Delete all remaining Items in DynamoDB table! &&
