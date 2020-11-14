@@ -2545,7 +2545,7 @@
 							"script": {
 								"id": "2c020b00-224a-4a82-b475-38510d50a346",
 								"exec": [
-									"setTimeout(function(){}, [10000]);"
+									"setTimeout(function(){}, [15000]);"
 								],
 								"type": "text/javascript"
 							}
