@@ -537,7 +537,7 @@
 					"response": []
 				},
 				{
-					"name": "POST /instances-conf userId=bald as user nicht",
+					"name": "7 POST /instances-conf userId=bald as user nicht",
 					"event": [
 						{
 							"listen": "test",
@@ -1359,7 +1359,7 @@
 									"    pm.expect(data.length).to.equal(2);",
 									"});",
 									"",
-									"pm.globals.set(\"id\", data[0].id);",
+									"pm.globals.set(\"id\", data[0].instanceId);",
 									""
 								],
 								"type": "text/javascript"
