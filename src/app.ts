@@ -102,8 +102,9 @@ const pipelineAppProps: PipelineAppProps = {
   testCommands: (stageAccount) => [
     ...(stageAccount.stage === "dev"
       ? [
-          `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json; RESULT=$?`,
-          `./scripts/cleanup.sh`,
+          `npx newman run test/alf-cdk.postman_collection.json --env-var baseUrl=$RestApiEndPoint -r cli,json --reporter-json-export tmp/newman/report.json --export-environment tmp/newman/env-vars.json --export-globals tmp/newman/global-vars.json; RESULT=$? || \,
+          ./scripts/cleanup.sh
+          exit $RESULT`,
         ]
       : []),
   ],
